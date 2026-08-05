@@ -1,7 +1,15 @@
 const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv').config()
+const Tour = require("./models/tour.model");
+
 const app = express();
 const port = 3000;
-const path = require('path');
+
+mongoose.connect(process.env.DATABASE);
+
+
 
 // chỉ định thư mục chứa file giao diện
 app.set('views', path.join(__dirname, 'views'));
@@ -18,9 +26,11 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/tour', (req, res) => {
+app.get('/tour', async (req, res) => {
+  const tourList = await Tour.find({});
   res.render('client/pages/tour', {
     pageTitle: 'Tour',
+    tourList: tourList,
   });
 });
 
