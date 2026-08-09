@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/', tourController.list);
 
+router.get('/detail', tourController.detail);
+
 module.exports = router;
