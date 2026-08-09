@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
 require('dotenv').config()
+const connectDB = require('./configs/database.config');
 const clientRoutes = require('./routes/client/index.route');
 
 const app = express();
 const port = 3000;
 
-mongoose.connect(process.env.DATABASE);
+// kết nối database
+connectDB();
 
 // chỉ định thư mục chứa file giao diện
 app.set('views', path.join(__dirname, 'views'));
