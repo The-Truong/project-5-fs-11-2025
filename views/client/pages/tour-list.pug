@@ -1,0 +1,152 @@
+extends ../layouts/default.pug
+
+block main
+  // section-9
+  .section-9
+    img.inner-image(
+      alt="" 
+      src="/client/assets/images/breadcum.jpg"
+      )
+    .inner-content
+      .container
+        h1.inner-title Tour Nước Ngoài
+        .inner-links
+          a(href="#") Trang Chủ
+          i.fa-solid.fa-angles-right
+          a(href="#") Tour Nước Ngoài
+  // end section-9
+  // section-10
+  .section-10
+    .container
+      .inner-wrap
+        .inner-left
+          .box-filter
+            .inner-head
+              .inner-title Bộ Lọc
+              i.fa-solid.fa-filter
+            .inner-group
+              label.inner-label(for="") Điểm đi
+              select(name="")
+                option(value="") -- Chọn điểm đi --
+                option(value="") Hà Nội
+                option(value="") Đà Nẵng
+                option(value="") Nha Trang
+            .inner-group
+              label.inner-label(for="") Điểm đến
+              select(name="")
+                option(value="") -- Chọn điểm đến --
+                option(value="") Hà Nội
+                option(value="") Đà Nẵng
+                option(value="") Nha Trang
+            .inner-group
+              label.inner-label(for="") Ngày khởi hành
+              input(type="date")
+            .inner-group
+              label.inner-label(for="") Điểm đến
+              .inner-list
+                .inner-item
+                  label.inner-label-item(for="") Người lớn:
+                  input(
+                    value="0" 
+                    name="" 
+                    type="number"
+                    )
+                .inner-item
+                  label.inner-label-item(for="") Trẻ em:
+                  input(
+                    value="0" 
+                    name="" 
+                    type="number"
+                    )
+                .inner-item
+                  label.inner-label-item(for="") Em bé:
+                  input(
+                    value="0" 
+                    name="" 
+                    type="number"
+                    )
+            .inner-group
+              label.inner-label(for="") Mức giá
+              select(name="")
+                option(value="") -- Chọn khoảng giá --
+                option(value="") Dưới 10 triệu
+                option(value="") Trên 10 triệu
+                option(value="") 1 tỷ
+            button.inner-button Áp Dụng
+        .inner-right
+          h2.inner-title-main Tour Nước Ngoài
+          .inner-desc
+            | Du lịch Châu Á: là châu lục lớn và đông dân nhất thế giới. Châu Á cũng có nhiều danh lam thắng cảnh đẹp tại một số quốc gia như Hàn Quốc, Nhật Bản, Trung Quốc, Việt Nam,... và VK Travel là nhà tổ chức du lịch chuyên nghiệp hàng đầu Châu Á, đã 5 lần liên tiếp nhận giải TTG Travel Awards. Hãy cùng 28.Travel du lịch Châu Á để tận hưởng những dịch vụ tốt nhất.
+          .inner-wrap-1
+            .inner-sort
+              .inner-label Sắp xếp :
+              a.inner-button(href="#")
+                | Giá tăng dần
+                i.fa-solid.fa-square-caret-up
+              a.inner-button(href="#")
+                | Giá giảm dần
+                i.fa-solid.fa-square-caret-down
+              a.inner-button.inner-active(href="#")
+                | Khuyến Mại Hot
+                i.fa-solid.fa-tag
+              a.inner-button(href="#")
+                | Xem Nhiều
+                i.fa-solid.fa-eye
+            .inner-total
+              | Tất cả:
+              b 101 Tour
+            button.inner-button-filter
+              | Bộ Lọc
+              i.fa-solid.fa-filter
+          .inner-wrap-2
+            .box-product
+              a(href="")
+                .inner-image
+                  img(
+                    alt="" 
+                    src="/client/assets/images/section-2-product.jpg"
+                    )
+                .inner-discount
+                  i.fa-solid.fa-bolt
+                  | Giảm -30%
+                .inner-info
+                  .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                  .inner-price
+                    .inner-price-old
+                      | 13.650.000
+                      span đ
+                    .inner-price-new
+                      | 12.590.000
+                      span đ
+                  .inner-desc
+                    .inner-id
+                      | Mã Tour:
+                      b 123456789
+                    .inner-day-start
+                      | Ngày Khởi Hành:
+                      b 22/07/2024
+                    .inner-time
+                      | Thời Gian:
+                      b 10 Ngày 9 Đêm
+                  .inner-meta
+                    .inner-rating
+                      .inner-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                      .inner-num (5)
+                    .inner-stock
+                      .inner-label Số chỗ còn:
+                      .inner-num 10
+          .pagination
+            button
+              i.fa-solid.fa-angles-left
+            button.inner-active 1
+            button 2
+            button 3
+            button 4
+            button
+              i.fa-solid.fa-angles-right
+  // end section-10
