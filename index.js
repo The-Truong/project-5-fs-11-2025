@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config()
-const Tour = require("./models/tour.model");
+const homeController = require('./controllers/client/home.controller');
+const tourController = require('./controllers/client/tour.controller');
 
 const app = express();
 const port = 3000;
@@ -20,19 +21,9 @@ app.set('view engine', 'pug');
 // cấu hình thư mục file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.render('client/pages/home', {
-    pageTitle: 'Trang chủ',
-  });
-});
+app.get('/', homeController.home);
 
-app.get('/tour', async (req, res) => {
-  const tourList = await Tour.find({});
-  res.render('client/pages/tour', {
-    pageTitle: 'Tour',
-    tourList: tourList,
-  });
-});
+app.get('/tour', tourController.list);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
