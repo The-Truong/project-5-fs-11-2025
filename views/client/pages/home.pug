@@ -1,4 +1,743 @@
 extends ../layouts/default.pug
 
 block main
-  h1 Đây là #{pageTitle}
+  // section-1
+  .section-1
+    .container
+      .inner-wrap
+        h1.inner-title(
+          data-aos-duration="1000" 
+          data-aos="fade-up"
+          )
+          | Du lịch Châu Á - Khám phá Mỹ, Úc, Âu
+          br
+          | Đi nơi đâu bạn muốn
+        .inner-desc(
+          data-aos-delay="300" 
+          data-aos-duration="1000" 
+          data-aos="fade-up"
+          )
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          |   magna aliqua
+        form.inner-form(
+          data-aos-delay="600" 
+          data-aos-duration="1000" 
+          data-aos="fade-up" 
+          action=""
+          )
+          .inner-box.inner-location
+            .inner-input-group
+              img.inner-icon(
+                alt="" 
+                src="/client/assets/images/icon-location.svg"
+                )
+              input.inner-input(
+                placeholder="Bạn muốn đi đâu" 
+                type="text"
+                )
+              img.inner-icon-down(
+                alt="" 
+                src="/client/assets/images/icon-down.svg"
+                )
+            .inner-suggest
+              .inner-suggest-title
+                i.fa-solid.fa-location-dot
+                | Địa Điểm Hot
+              .inner-list
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Nhật Bản
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Thụy Điển
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Singapor
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Paris
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Tokyo
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Nam Mĩ
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Vương Quốc Anh
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Thái Lan
+                    .inner-text 50 tours
+                .inner-item
+                  img(
+                    alt="" 
+                    src="/client/assets/images/item-suggest.jpg"
+                    )
+                  .inner-content
+                    .inner-name Hàn Quốc
+                    .inner-text 50 tours
+          .inner-box.inner-quantity
+            .inner-input-group
+              img.inner-icon(
+                alt="" 
+                src="/client/assets/images/icon-user.svg"
+                )
+              input.inner-input(
+                placeholder="Số lượng" 
+                type="text"
+                )
+              img.inner-icon-down(
+                alt="" 
+                src="/client/assets/images/icon-down.svg"
+                )
+            .inner-list-quantity
+              .inner-item
+                .inner-label Người lớn
+                .inner-action
+                  .inner-btn.inner-down -
+                  input(
+                    readonly="" 
+                    value="0" 
+                    type="text"
+                    )
+                  .inner-btn.inner-up +
+              .inner-item
+                .inner-label Trẻ em
+                .inner-action
+                  .inner-btn.inner-down -
+                  input(
+                    readonly="" 
+                    value="0" 
+                    type="text"
+                    )
+                  .inner-btn.inner-up +
+              .inner-item
+                .inner-label Em bé
+                .inner-action
+                  .inner-btn.inner-down -
+                  input(
+                    readonly="" 
+                    value="0" 
+                    type="text"
+                    )
+                  .inner-btn.inner-up +
+          .inner-box
+            .inner-input-group
+              img.inner-icon(
+                alt="" 
+                src="/client/assets/images/icon-calendar.svg"
+                )
+              input.inner-input(
+                placeholder="Lịch khởi hành" 
+                type="text"
+                )
+              img.inner-icon-down(
+                alt="" 
+                src="/client/assets/images/icon-down.svg"
+                )
+          button.inner-button
+            img(
+              alt="" 
+              src="/client/assets/images/icon-search.svg"
+              )
+            | Tìm Kiếm
+  // end section-1
+  // section-2
+  .section-2(
+    data-aos-delay="900" 
+    data-aos-duration="1000" 
+    data-aos="fade-up"
+    )
+    .container
+      .inner-wrap
+        .inner-left
+          h2.inner-title
+            | ƯU ĐÃI 2024
+            br
+            | TOUR GIỜ CHÓT
+          .inner-desc Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          .inner-end Kết thúc sau
+          .inner-clock(clock-expire="2026-10-27T00:00:00")
+            .inner-item
+              .inner-num 00
+              .inner-text Ngày
+            .inner-item
+              .inner-num 00
+              .inner-text Giờ
+            .inner-item
+              .inner-num 00
+              .inner-text Phút
+            .inner-item
+              .inner-num 00
+              .inner-text Giây
+          .inner-discount GIẢM ĐẾN
+          .inner-price
+            | 990.000
+            span đ
+        .inner-right
+          .swiper.swiperSection2
+            .swiper-wrapper
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+              .swiper-slide
+                .box-product
+                  a(href="")
+                    .inner-image
+                      img(
+                        alt="" 
+                        src="/client/assets/images/section-2-product.jpg"
+                        )
+                    .inner-discount
+                      i.fa-solid.fa-bolt
+                      | Giảm -30%
+                    .inner-info
+                      .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+                      .inner-price
+                        .inner-price-old
+                          | 13.650.000
+                          span đ
+                        .inner-price-new
+                          | 12.590.000
+                          span đ
+                      .inner-desc
+                        .inner-id
+                          | Mã Tour:
+                          b 123456789
+                        .inner-day-start
+                          | Ngày Khởi Hành:
+                          b 22/07/2024
+                        .inner-time
+                          | Thời Gian:
+                          b 10 Ngày 9 Đêm
+                      .inner-meta
+                        .inner-rating
+                          .inner-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                            i.fa-solid.fa-star
+                          .inner-num (5)
+                        .inner-stock
+                          .inner-label Số chỗ còn:
+                          .inner-num 10
+  // end section-2
+  // section-3
+  .section-3
+    .container
+      h2.title(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        ) Khuyến Mại Bùng Nổ - Đánh Tan Nóng Bức
+      .inner-wrap(
+        data-aos-delay="300" 
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        .swiper.swiperSection3
+          .swiper-wrapper
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+            .swiper-slide
+              .inner-item
+                a(href="")
+                  img(
+                    alt="" 
+                    src="/client/assets/images/Group 1610.png"
+                    )
+          .swiper-pagination
+  // end section 3
+  // section 4
+  .section-4
+    .container
+      h2.title(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        ) Tour Trong Nước
+      .inner-wrap(
+        data-aos-delay="300" 
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        .box-product
+          a(href="")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/assets/images/section-2-product.jpg"
+                )
+            .inner-discount
+              i.fa-solid.fa-bolt
+              | Giảm -30%
+            .inner-info
+              .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+              .inner-price
+                .inner-price-old
+                  | 13.650.000
+                  span đ
+                .inner-price-new
+                  | 12.590.000
+                  span đ
+              .inner-desc
+                .inner-id
+                  | Mã Tour:
+                  b 123456789
+                .inner-day-start
+                  | Ngày Khởi Hành:
+                  b 22/07/2024
+                .inner-time
+                  | Thời Gian:
+                  b 10 Ngày 9 Đêm
+              .inner-meta
+                .inner-rating
+                  .inner-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                  .inner-num (5)
+                .inner-stock
+                  .inner-label Số chỗ còn:
+                  .inner-num 10
+      .inner-button(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        a.button-outline(href="#") Xem tất cả
+  // end section 4
+  // section 5
+  .section-5(
+    data-aos-delay="300" 
+    data-aos-duration="1000" 
+    data-aos="fade-up"
+    )
+    .container
+      .inner-image
+        a(href="")
+          img(
+            alt="" 
+            src="/client/assets/images/section-5-tour.jpg"
+            )
+  // end section 5
+  // section 6
+  .section-6
+    .container
+      h2.title(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        ) Tour Nước Ngoài
+      .inner-wrap(
+        data-aos-delay="300" 
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        .box-product
+          a(href="")
+            .inner-image
+              img(
+                alt="" 
+                src="/client/assets/images/section-2-product.jpg"
+                )
+            .inner-discount
+              i.fa-solid.fa-bolt
+              | Giảm -30%
+            .inner-info
+              .inner-title Tour 2024 Phú Quốc – Thiên Đường Đảo Ngọc (3N2D)
+              .inner-price
+                .inner-price-old
+                  | 13.650.000
+                  span đ
+                .inner-price-new
+                  | 12.590.000
+                  span đ
+              .inner-desc
+                .inner-id
+                  | Mã Tour:
+                  b 123456789
+                .inner-day-start
+                  | Ngày Khởi Hành:
+                  b 22/07/2024
+                .inner-time
+                  | Thời Gian:
+                  b 10 Ngày 9 Đêm
+              .inner-meta
+                .inner-rating
+                  .inner-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                    i.fa-solid.fa-star
+                  .inner-num (5)
+                .inner-stock
+                  .inner-label Số chỗ còn:
+                  .inner-num 10
+      .inner-button(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        a.button-outline(href="#") Xem tất cả
+  // end section 4
+  // section 7
+  .section-7(
+    data-aos-delay="300" 
+    data-aos-duration="1000" 
+    data-aos="fade-up"
+    )
+    .container
+      .inner-image
+        a(href="")
+          img(
+            alt="" 
+            src="/client/assets/images/section-5-tour.jpg"
+            )
+  // end section 7
+  // section-8
+  .section-8
+    .container
+      .title(
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        ) Tin Tức Mới
+      .inner-wrap(
+        data-aos-delay="300" 
+        data-aos-duration="1000" 
+        data-aos="fade-up"
+        )
+        .blog-item-1
+          a(href="#")
+            img.inner-image(
+              alt="" 
+              src="/client/assets/images/blog-item-1.jpg"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              .inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+        .blog-item-2
+          a(href="#")
+            img.inner-image(
+              alt="" 
+              src="/client/assets/images/blog-item-2.jpg"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              .inner-title Top 5 điểm check in độc đáo tại Singapore
+              .inner-desc
+                | Nếu bạn nghĩ du lịch Singapore rất nhàm chán vì chỉ mãi quanh quẩn trong những khối bê tông vô cảm thì bạn “chắc chưa?”. Tuy đảo quốc Sư Tử không phải là một quốc gia rộng lớn nhưng các địa điểm du lịch tại Singapore chưa từng đánh mất sức hút đối với cộng đồng xê dịch quốc tế.
+        .blog-item-1
+          a(href="#")
+            img.inner-image(
+              alt="" 
+              src="/client/assets/images/blog-item-1.jpg"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              .inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+        .blog-item-1
+          a(href="#")
+            img.inner-image(
+              alt="" 
+              src="/client/assets/images/blog-item-1.jpg"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              .inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+        .blog-item-1
+          a(href="#")
+            img.inner-image(
+              alt="" 
+              src="/client/assets/images/blog-item-1.jpg"
+              )
+            .inner-content
+              .inner-date 23/05/2024
+              .inner-title Homestay “cổ tích” giữa Đà Lạt mộng mơ
+  // end section-8
