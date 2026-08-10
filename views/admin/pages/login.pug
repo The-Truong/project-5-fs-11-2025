@@ -1,7 +1,5 @@
 extends ../layouts/account.pug
 
-block title
-  title Login Page
 block main
   .form-account
     .inner-title Đăng nhập
@@ -17,8 +15,8 @@ block main
         .inner-check
           input(type="checkbox" id="rememberPassword" name="rememberPassword")
           label(for="rememberPassword") Nhớ mật khẩu
-        a.inner-forgot(href="#") Quên mật khẩu?
+        a.inner-forgot(href="/admin/account/forgot-password") Quên mật khẩu?
       button.inner-button Đăng nhập
     .inner-more
       span Bạn chưa có tài khoản?
-      a(href="#") Tạo tài khoản
+      a(href="/admin/account/register") Tạo tài khoản
