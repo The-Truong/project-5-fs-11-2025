@@ -4,5 +4,6 @@ const accountController = require('../../controllers/admin/account.controller');
 const router = express.Router();
 
 router.get('/login', accountController.login);
+router.get('/register', accountController.register);
 
 module.exports = router;
