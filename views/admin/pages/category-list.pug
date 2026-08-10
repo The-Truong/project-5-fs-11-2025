@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Quản lý danh mục
-
 block main
   h1.box-title Quản lý danh mục
   .section-4
@@ -40,7 +37,7 @@ block main
       .inner-search
         i.fa-solid.fa-magnifying-glass
         input(type="text" placeholder="Tìm kiếm")
-      a.inner-create(href="#") + Tạo mới
+      a.inner-create(href=`/${pathAdmin}/category/create`) + Tạo mới
   .section-6
     .table-2
       table
@@ -61,7 +58,7 @@ block main
               input.inner-check(type="checkbox" name="selectItem")
             td Danh mục 1
             td
-              img.inner-avatar(src="assets/images/section-4.png" alt="avatar")
+              img.inner-avatar(src="/admin/assets/images/section-4.png" alt="avatar")
             td 1
             td
               .tag.tag-green Hoạt động
