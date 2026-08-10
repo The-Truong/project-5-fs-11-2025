@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Tạo tour
-
 block main
   .box-title Tạo tour
   .section-7
@@ -107,4 +104,4 @@ block main
       .inner-button.inner-two-col
         button Tạo mới
     .inner-back
-      a(href="#") Quay lại danh sách
+      a(href=`/${pathAdmin}/tour/list`) Quay lại danh sách

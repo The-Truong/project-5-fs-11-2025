@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Quản lý tour
-
 block main
   h1.box-title Quản lý tour
   .section-4
@@ -50,8 +47,8 @@ block main
       .inner-search
         i.fa-solid.fa-magnifying-glass
         input(type="text" placeholder="Tìm kiếm")
-      a.inner-create(href="#") + Tạo mới
-      a.inner-trash(href="#") Thùng rác
+      a.inner-create(href=`/${pathAdmin}/tour/create`) + Tạo mới
+      a.inner-trash(href=`/${pathAdmin}/tour/trash`) Thùng rác
   .section-6
     .table-2
       table
@@ -74,7 +71,7 @@ block main
               input.inner-check(type="checkbox" name="selectItem")
             td Tour Hạ Long
             td
-              img.inner-avatar(src="assets/images/section-4.png" alt="avatar")
+              img.inner-avatar(src="/admin/assets/images/section-4.png" alt="avatar")
             td
               div NL: 1.900.000đ
               div TE: 1.600.000đ
