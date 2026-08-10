@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Quản lý đơn hàng
-
 block main
   .box-title Đơn hàng: OD000001
   .section-7
@@ -41,7 +38,7 @@ block main
         label.inner-label Danh sách tour
         .inner-tour-list
           .inner-tour-item
-            img(src="assets/images/section-4.png", alt="")
+            img(src="/admin/assets/images/section-4.png", alt="")
             .inner-content
               .inner-name Tour Hạ Long
               .inner-text 
@@ -49,7 +46,7 @@ block main
                 div Trẻ em: 2 x 1.300.000đ
                 div Em bé: 2 x 1.000.000đ
           .inner-tour-item
-              img(src="assets/images/section-4.png", alt="")
+              img(src="/admin/assets/images/section-4.png", alt="")
               .inner-content
                 .inner-name Tour Hạ Long
                 .inner-text 
@@ -68,4 +65,4 @@ block main
       .inner-button.inner-two-col
         button Tạo mới
     .inner-back
-      a(href="#") Quay lại danh sách
+      a(href=`/${pathAdmin}/order/list`) Quay lại danh sách
