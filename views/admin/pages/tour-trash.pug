@@ -1,0 +1,75 @@
+extends ../layouts/default.pug
+
+block title
+  title Thùng rác tour
+
+block main
+  h1.box-title Thùng rác tour
+  
+  .section-5
+    .inner-wrap
+      .inner-action
+        .inner-item
+          select(name="user")
+            option(value="") -- Hành động --
+            option(value="1") Tạm dừng
+            option(value="2") Hoạt động
+        button Áp dụng
+      .inner-search
+        i.fa-solid.fa-magnifying-glass
+        input(type="text" placeholder="Tìm kiếm")
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th 
+              input.inner-checkall(type="checkbox" name="selectAll")
+            th Tên tour
+            th Ảnh đại diện
+            th Giá
+            th Còn lại
+            th Vị trí
+            th Trạng thái
+            th Tạo bởi
+            th Xóa bởi
+            th Hành động
+        tbody
+          tr
+            td 
+              input.inner-check(type="checkbox" name="selectItem")
+            td Tour Hạ Long
+            td
+              img.inner-avatar(src="assets/images/section-4.png" alt="avatar")
+            td
+              div NL: 1.900.000đ
+              div TE: 1.600.000đ
+              div EB: 1.000.000đ
+            td
+              div NL: 30
+              div TE: 20
+              div EB: 10
+            td 1
+            td
+              .tag.tag-green Hoạt động
+            td 
+              div Lê Văn A
+              .inner-date 01/01/2024
+            td
+              div Lê Văn A
+              .inner-date 16:30 - 20/10/2024
+            td
+              .inner-action
+                a.inner-edit(href="#") 
+                  i.fa-solid.fa-rotate-left
+                a.inner-remove(href="#")
+                  i.fa-regular.fa-trash-can
+  .box-pagination
+    .inner-title Hiển thị 1 - 9 của 78
+    .inner-select
+      select(name="pagination")
+        option(value="1") Trang 1
+        option(value="2") Trang 2
+        option(value="3") Trang 3
+
+  

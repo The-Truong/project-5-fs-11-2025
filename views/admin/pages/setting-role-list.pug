@@ -1,0 +1,50 @@
+extends ../layouts/default.pug
+
+block title
+  title Nhóm quyền
+
+block main
+  .box-title Nhóm quyền
+  .section-5
+    .inner-wrap
+      .inner-action
+        .inner-item
+          select(name="")
+            option(value="") -- Hành động --
+            option(value="") Tạm dừng
+            option(value="") Hoạt động
+        button Áp dụng
+      .inner-search
+        i.fa-solid.fa-magnifying-glass
+        input(type="text" placeholder="Tìm kiếm")
+      a.inner-create(href="#") + Tạo mới
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th 
+              input.inner-checkall(type="checkbox" name="selectAll")
+            th Tên nhóm quyền
+            th Mô tả ngắn
+            th Hành động
+        tbody
+          tr
+            td 
+              input.inner-check(type="checkbox" name="selectItem")
+            td Quản trị viên
+            td Có đầy đủ các quyền
+            td
+              .inner-action
+                a.inner-edit(href="#") 
+                  i.fa-regular.fa-pen-to-square
+                a.inner-remove(href="#")
+                  i.fa-regular.fa-trash-can
+  .box-pagination
+    .inner-title Hiển thị 1 - 9 của 78
+    .inner-select
+      select(name="pagination")
+        option(value="1") Trang 1
+        option(value="2") Trang 2
+        option(value="3") Trang 3
+          

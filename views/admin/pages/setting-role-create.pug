@@ -1,0 +1,37 @@
+extends ../layouts/default.pug
+
+block title
+  title Tạo nhóm quyền
+
+block main
+  .box-title Tạo nhóm quyền
+  .section-7
+    form(id="settingRoleCreateForm")
+      .inner-group
+        label.inner-label(for="name") Tên nhóm quyền *
+        input(type="text" id="name" name="name")
+      .inner-group
+        label.inner-label(for="description") Mô tả ngắn
+        input(type="text" id="descripttion" name="description")
+      .inner-group
+        label.inner-label Phân quyền
+        .inner-checkbox-list
+          .inner-checkbox-item
+            input(type="checkbox" name="permissions" id="permission-1" value="dashboard-view")
+            label(for="permission-1") Xem trang Tổng quan
+          .inner-checkbox-item
+            input(type="checkbox" name="permissions" id="permission-2" value="category-view")
+            label(for="permission-2") Xem danh mục
+          .inner-checkbox-item
+            input(type="checkbox" name="permissions" id="permission-3" value="category-create")
+            label(for="permission-3") Tạo danh mục
+          .inner-checkbox-item
+            input(type="checkbox" name="permissions" id="permission-4" value="category-edit")
+            label(for="permission-4") Sửa danh mục
+          .inner-checkbox-item
+            input(type="checkbox" name="permissions" id="permission-1" value="category-delete")
+            label(for="permission-5") Xóa danh mục
+      .inner-button.inner-two-col
+        button Tạo mới
+    .inner-back
+      a(href="#") Quay lại danh sách

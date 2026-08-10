@@ -1,0 +1,71 @@
+extends ../layouts/default.pug
+
+block title
+  title Quản lý đơn hàng
+
+block main
+  .box-title Đơn hàng: OD000001
+  .section-7
+    form(id="orderEditForm")
+      .inner-group
+        label.inner-label(for="fullName") Tên khách hàng *
+        input(type="text" id="fullName" name="fullName")
+      .inner-group
+        label.inner-label(for="phone") Số điện thoại *
+        input(type="text" id="phone" name="phone")
+      .inner-group.inner-two-col
+        label.inner-label(for="note") Ghi chú
+        textarea(id="note" name="note") test...
+      .inner-group
+        label.inner-label(for="paymentMethod") Phương thức thanh toán
+        select(id="paymentMethod" name="paymentMethod")
+          option(value="money") Thanh toán khi nhận hàng
+          option(value="vnpay") VNPay
+          option(value="zalopay") ZaloPay
+          option(value="bank") Chuyển khoản
+      .inner-group
+        label.inner-label(for="paymentStatus") Trạng thái thanh toán
+        select(id="paymentStatus" name="paymentStatus")
+          option(value="paid") Đã thanh toán
+          option(value="unpaid") Chưa thanh toán
+      .inner-group
+        label.inner-label(for="createAt") Ngày đặt
+        input(type="datetime-local" id="createAt" value="2024-11-18T10:30" readonly)
+      .inner-group
+        label.inner-label(for="status") Trạng thái
+        select(id="status" name="status")
+          option(value="initial") Khởi tạo
+          option(value="done") Hoàn thành
+          option(value="cancel") Hủy
+      .inner-group
+        label.inner-label Danh sách tour
+        .inner-tour-list
+          .inner-tour-item
+            img(src="assets/images/section-4.png", alt="")
+            .inner-content
+              .inner-name Tour Hạ Long
+              .inner-text 
+                div Người lớn: 3 x 1.500.000đ
+                div Trẻ em: 2 x 1.300.000đ
+                div Em bé: 2 x 1.000.000đ
+          .inner-tour-item
+              img(src="assets/images/section-4.png", alt="")
+              .inner-content
+                .inner-name Tour Hạ Long
+                .inner-text 
+                  div Người lớn: 3 x 1.500.000đ
+                  div Trẻ em: 2 x 1.300.000đ
+                  div Em bé: 2 x 1.000.000đ
+      .inner-group
+        label.inner-label Thanh toán
+        .inner-order-total
+          div Tổng tiền: 10.000.000đ
+          div Giảm: 400.000đ
+          div Mã giảm: TOURMUAHE2024
+          div 
+            | Thanh toán: 
+            span 9.600.000đ
+      .inner-button.inner-two-col
+        button Tạo mới
+    .inner-back
+      a(href="#") Quay lại danh sách

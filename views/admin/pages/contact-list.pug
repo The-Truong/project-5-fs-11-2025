@@ -1,0 +1,59 @@
+extends ../layouts/default.pug
+
+block title
+  title Thông tin liên hệ
+
+block main
+  .box-title Thông tin liên hệ
+  .section-4
+    .inner-wrap
+      .inner-item
+        i.fa-solid.fa-filter
+        | Bộ lọc
+      .inner-item
+        input(type="date" name="dateStart" class="inner-date")
+        span -
+        input(type="date" name="dateEnd" class="inner-date")
+      .inner-item.inner-reset
+        i.fa-solid.fa-arrow-rotate-right
+        | Xóa bộ lọc
+  .section-5
+    .inner-wrap
+      .inner-action
+        .inner-item
+          select(name="user")
+            option(value="") -- Hành động --
+            option(value="1") Tạm dừng
+            option(value="2") Hoạt động
+        button Áp dụng
+      .inner-search
+        i.fa-solid.fa-magnifying-glass
+        input(type="text" placeholder="Tìm kiếm")
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th 
+              input.inner-checkall(type="checkbox" name="selectAll")
+            th Email
+            th Ngày tạo
+            th Hành động
+        tbody
+          tr
+            td 
+              input.inner-check(type="checkbox" name="selectItem")
+            td levana@gmail.com
+            td 16:40 - 12/12/2024
+            td
+              .inner-action
+                a.inner-remove(href="#")
+                  i.fa-regular.fa-trash-can
+  .box-pagination
+    .inner-title Hiển thị 1 - 9 của 78
+    .inner-select
+      select(name="pagination")
+        option(value="1") Trang 1
+        option(value="2") Trang 2
+        option(value="3") Trang 3
+          

@@ -1,0 +1,77 @@
+extends ../layouts/default.pug
+
+block title
+  title Quản lý người dùng
+
+block main
+  .box-title Quản lý người dùng
+  .section-4
+    .inner-wrap
+      .inner-item
+        i.fa-solid.fa-filter
+        | Bộ lọc
+      .inner-item
+        select(name="status")
+          option(value="") Trạng thái
+          option(value="1") Khởi tạo
+          option(value="2") Hoạt động
+          option(value="3") Tạm dừng
+      .inner-item
+        input(type="date" name="dateStart" class="inner-date")
+        span -
+        input(type="date" name="dateEnd" class="inner-date")
+      .inner-item.inner-reset
+        i.fa-solid.fa-arrow-rotate-right
+        | Xóa bộ lọc
+  .section-5
+    .inner-wrap
+      .inner-action
+        .inner-item
+          select(name="user")
+            option(value="") -- Hành động --
+            option(value="1") Tạm dừng
+            option(value="2") Hoạt động
+        button Áp dụng
+      .inner-search
+        i.fa-solid.fa-magnifying-glass
+        input(type="text" placeholder="Tìm kiếm")
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th 
+              input.inner-checkall(type="checkbox" name="selectAll")
+            th Họ tên
+            th Ảnh đại diện
+            th Email
+            th Số điện thoại
+            th Địa chỉ
+            th Trạng thái
+            th Hành động
+        tbody
+          tr
+            td 
+              input.inner-check(type="checkbox" name="selectItem")
+            td Lê Văn A
+            td
+              img.inner-avatar(src="assets/images/avatar.png" alt="avatar")
+            td levana@gmail.com
+            td 01234567890
+            td Số 123, đường ABC,...
+            td
+              .tag.tag-green Hoạt động
+            td
+              .inner-action
+                a.inner-edit(href="#") 
+                  i.fa-regular.fa-pen-to-square
+                a.inner-remove(href="#")
+                  i.fa-regular.fa-trash-can
+  .box-pagination
+    .inner-title Hiển thị 1 - 9 của 78
+    .inner-select
+      select(name="pagination")
+        option(value="1") Trang 1
+        option(value="2") Trang 2
+        option(value="3") Trang 3
+          

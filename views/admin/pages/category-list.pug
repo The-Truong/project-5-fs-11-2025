@@ -1,0 +1,88 @@
+extends ../layouts/default.pug
+
+block title
+  title Quản lý danh mục
+
+block main
+  h1.box-title Quản lý danh mục
+  .section-4
+    .inner-wrap
+      .inner-item
+        i.fa-solid.fa-filter
+        | Bộ lọc
+      .inner-item
+        select(name="status")
+          option(value="") Trạng thái
+          option(value="1") Khởi tạo
+          option(value="2") Hoạt động
+          option(value="3") Tạm dừng
+      .inner-item
+        select(name="user")
+          option(value="") Người tạo
+          option(value="1") Nguyễn Văn Tèo
+          option(value="2") Nguyễn Văn Tý
+      .inner-item
+        input(type="date" name="dateStart" class="inner-date")
+        span -
+        input(type="date" name="dateEnd" class="inner-date")
+      .inner-item.inner-reset
+        i.fa-solid.fa-arrow-rotate-right
+        | Xóa bộ lọc
+  .section-5
+    .inner-wrap
+      .inner-action
+        .inner-item
+          select(name="user")
+            option(value="") -- Hành động --
+            option(value="1") Tạm dừng
+            option(value="2") Hoạt động
+        button Áp dụng
+      .inner-search
+        i.fa-solid.fa-magnifying-glass
+        input(type="text" placeholder="Tìm kiếm")
+      a.inner-create(href="#") + Tạo mới
+  .section-6
+    .table-2
+      table
+        thead
+          tr
+            th 
+              input.inner-checkall(type="checkbox" name="selectAll")
+            th Tên danh mục
+            th Ảnh đại diện
+            th Vị trí
+            th Trạng thái
+            th Tạo bởi
+            th Cập nhật bởi
+            th Hành động
+        tbody
+          tr
+            td 
+              input.inner-check(type="checkbox" name="selectItem")
+            td Danh mục 1
+            td
+              img.inner-avatar(src="assets/images/section-4.png" alt="avatar")
+            td 1
+            td
+              .tag.tag-green Hoạt động
+            td 
+              div Lê Văn A
+              .inner-date 01/01/2024
+            td
+              div Lê Văn A
+              .inner-date 16:30 - 20/10/2024
+            td
+              .inner-action
+                a.inner-edit(href="#") 
+                  i.fa-regular.fa-pen-to-square
+                a.inner-remove(href="#")
+                  i.fa-regular.fa-trash-can
+  .box-pagination
+    .inner-title Hiển thị 1 - 9 của 78
+    .inner-select
+      select(name="pagination")
+        option(value="1") Trang 1
+        option(value="2") Trang 2
+        option(value="3") Trang 3
+
+  
