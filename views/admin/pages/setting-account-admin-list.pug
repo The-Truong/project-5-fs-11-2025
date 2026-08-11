@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Tài khoản quản trị
-
 block main
   .box-title Tài khoản quản trị
   .section-4
@@ -41,7 +38,7 @@ block main
       .inner-search
         i.fa-solid.fa-magnifying-glass
         input(type="text" placeholder="Tìm kiếm")
-      a.inner-create(href="#") + Tạo mới
+      a.inner-create(href=`/${pathAdmin}/setting/account-admin/create`) + Tạo mới
   .section-6
     .table-2
       table
@@ -63,7 +60,7 @@ block main
               input.inner-check(type="checkbox" name="selectItem")
             td Lê Văn A
             td
-              img.inner-avatar(src="assets/images/avatar.png" alt="avatar")
+              img.inner-avatar(src="/admin/assets/images/avatar.png" alt="avatar")
             td levana@gmail.com
             td 01234567890
             td Quản trị viên

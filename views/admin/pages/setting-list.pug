@@ -1,17 +1,14 @@
 extends ../layouts/default.pug
 
-block title
-  title Cài đặt chung
-
 block main
   .box-title Cài đặt chung
   .section-8
-    a.inner-item(href="#")
-      img(src="assets/images/Information.svg" alt="item 1")
+    a.inner-item(href=`/${pathAdmin}/setting/website-info`)
+      img(src="/admin/assets/images/Information.svg" alt="item 1")
       .inner-text Thông tin website
-    a.inner-item(href="#")
-      img(src="assets/images/User-doashboard.svg" alt="item 2")
+    a.inner-item(href=`/${pathAdmin}/setting/account-admin/list`)
+      img(src="/admin/assets/images/User-doashboard.svg" alt="item 2")
       .inner-text Tài khoản quản trị
-    a.inner-item(href="#")
-      img(src="assets/images/User-rule.svg" alt="item 3")
+    a.inner-item(href=`/${pathAdmin}/setting/role/list`)
+      img(src="/admin/assets/images/User-rule.svg" alt="item 3")
       .inner-text Nhóm quyền

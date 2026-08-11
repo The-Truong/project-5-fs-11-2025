@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Thông tin website
-
 block main
   .box-title Thông tin website
   .section-7
@@ -30,4 +27,4 @@ block main
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back
-      a(href="#") Quay lại danh sách
+      a(href=`/${pathAdmin}/setting/list`) Quay lại danh sách

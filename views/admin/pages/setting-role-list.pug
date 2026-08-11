@@ -1,8 +1,5 @@
 extends ../layouts/default.pug
 
-block title
-  title Nhóm quyền
-
 block main
   .box-title Nhóm quyền
   .section-5
@@ -17,7 +14,7 @@ block main
       .inner-search
         i.fa-solid.fa-magnifying-glass
         input(type="text" placeholder="Tìm kiếm")
-      a.inner-create(href="#") + Tạo mới
+      a.inner-create(href=`/${pathAdmin}/setting/role/create`) + Tạo mới
   .section-6
     .table-2
       table
