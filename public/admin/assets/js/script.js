@@ -18,6 +18,15 @@ if(sider){
   buttonMenu.addEventListener("click", () => {
     sider.classList.toggle("show");
   })
+
+  const pathName = window.location.pathname.split("/");
+  const listTagA = sider.querySelectorAll("a");
+  listTagA.forEach(a => {
+    const link = a.getAttribute("href").split("/");
+    if(link[2] == pathName[2]){
+      a.classList.add("active");
+    }
+  })
 }
 // end buttonMenu
 
