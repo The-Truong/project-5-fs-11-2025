@@ -7,6 +7,7 @@ const orderRoutes = require('./order.route');
 const userRoutes = require('./user.route');
 const contactRoutes = require('./contact.route');
 const settingRoutes = require('./setting.route');
+const profileRoutes = require('./profile.route');
 const router = express.Router();
 
 router.use('/account', accountRoutes);
@@ -17,5 +18,6 @@ router.use('/order', orderRoutes);
 router.use('/user', userRoutes);
 router.use('/contact', contactRoutes);
 router.use('/setting', settingRoutes);
+router.use('/profile', profileRoutes);
 
 module.exports = router;
