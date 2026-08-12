@@ -1,3 +1,4 @@
+
 // loginForm
 const loginForm = document.querySelector("#loginForm");
 
@@ -26,9 +27,7 @@ if(loginForm){
       const email = event.target.email.value;
       const password = event.target.password.value;
       const remember = event.target.rememberPassword.checked;
-      console.log(email)
-      console.log(password)
-      console.log(remember)
+      
     })
 }
 // end loginForm
@@ -114,11 +113,31 @@ if(registerForm){
       const fullName = event.target.fullName.value;
       const email = event.target.email.value;
       const password = event.target.password.value;
-      const agree = event.target.agree.checked;
-      console.log(fullName)
-      console.log(email)
-      console.log(password)
-      console.log(agree)
+      
+      const dataFinal = {
+        fullName: fullName,
+        email: email,
+        password: password
+      }
+
+      fetch(`/${pathAdmin}/account/register`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          // notyf.success('Đăng ký thành công');
+          drawNotyf(data.code, data.message);
+          window.location.href = `/${pathAdmin}/account/register-success`;
+        }
+      })
     })
 }
 // end registerForm
