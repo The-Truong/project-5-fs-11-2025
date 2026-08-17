@@ -47,12 +47,12 @@ if(registerForm){
       {
         rule: 'minLength',
         value: 5,
-        errorMessage: 'Tối thiểu 5 ký tự',
+        errorMessage: 'Họ tên phải có ít nhất 5 ký tự!',
       },
       {
         rule: 'maxLength',
         value: 50,
-        errorMessage: 'Tối đa 50 ký tự',
+        errorMessage: 'Họ tên không được vượt quá 50 ký tự!',
       },
     ])
     .addField('#email', [
@@ -68,7 +68,7 @@ if(registerForm){
     .addField('#password', [
       {
         rule: 'required',
-        errorMessage: 'Vui lòng nhập mật khẩu',
+        errorMessage: 'Vui lòng nhập mật khẩu!',
       },
       {
         rule: 'strongPassword',
@@ -76,27 +76,27 @@ if(registerForm){
           let html = ``;
           if(value.length < 8){
             html += `
-              <div>Mật khẩu cần tối thiểu 8 ký tự<div>
+              <div>Mật khẩu cần tối thiểu 8 ký tự!<div>
             `
           }
           if(!/[A-Z]/.test(value)){
             html += `
-              <div>Mật khẩu cần tối thiểu 1 chữ cái viết hoa<div>
+              <div>Mật khẩu cần tối thiểu 1 chữ cái viết hoa!<div>
             `
           }
           if(!/[a-z]/.test(value)){
             html += `
-              <div>Mật khẩu cần tối thiểu 1 chữ cái viết thường<div>
+              <div>Mật khẩu cần tối thiểu 1 chữ cái viết thường!<div>
             `
           }
           if(!/[0-9]/.test(value)){
             html += `
-              <div>Mật khẩu cần tối thiểu 1 chữ số<div>
+              <div>Mật khẩu cần tối thiểu 1 chữ số!<div>
             `
           }
           if(!/[!@#$%^&*(),.?":{}|<>]/.test(value)){
             html += `
-              <div>Mật khẩu cần tối thiểu 1 ký tự đặc biệt<div>
+              <div>Mật khẩu cần tối thiểu 1 ký tự đặc biệt!<div>
             `
           }
           return html;
