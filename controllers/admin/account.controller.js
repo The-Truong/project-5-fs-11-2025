@@ -43,6 +43,7 @@ module.exports.loginPost = async (req, res) => {
   const token = jwt.sign(
     {
       id: existAccount.id,
+      email: existAccount.email,
     },
     process.env.JWT_SECRET,
     {

@@ -8,17 +8,20 @@ const userRoutes = require('./user.route');
 const contactRoutes = require('./contact.route');
 const settingRoutes = require('./setting.route');
 const profileRoutes = require('./profile.route');
+
+const { verifyToken } = require('../../middleware/admin/auth.middleware');
+
 const router = express.Router();
 
 router.use('/account', accountRoutes);
-router.use('/dashboard', dashboardRoutes);
-router.use('/category', categoryRoutes);
-router.use('/tour', tourRoutes);
-router.use('/order', orderRoutes);
-router.use('/user', userRoutes);
-router.use('/contact', contactRoutes);
-router.use('/setting', settingRoutes);
-router.use('/profile', profileRoutes);
+router.use('/dashboard', verifyToken, dashboardRoutes);
+router.use('/category', verifyToken, categoryRoutes);
+router.use('/tour', verifyToken, tourRoutes);
+router.use('/order', verifyToken, orderRoutes);
+router.use('/user', verifyToken, userRoutes);
+router.use('/contact', verifyToken, contactRoutes);
+router.use('/setting', verifyToken, settingRoutes);
+router.use('/profile', verifyToken, profileRoutes);
 
 router.use( (req, res) => {
   res.render('admin/pages/error-404', {

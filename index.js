@@ -1,10 +1,13 @@
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const connectDB = require('./configs/database.config');
 const adminRoutes = require('./routes/admin/index.route');
 const clientRoutes = require('./routes/client/index.route');
 const { pathAdmin } = require('./configs/variable.config');
+
+
 const app = express();
 const port = 3000;
 
@@ -28,6 +31,9 @@ global.pathAdmin = pathAdmin;
 
 // cho phép gửi data lên ở dạng json
 app.use(express.json());
+
+//sử dụng cookie-parse
+app.use(cookieParser())
 
 //cấu hình đường dẫn
 app.use(`/${pathAdmin}`, adminRoutes);
