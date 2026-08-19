@@ -19,15 +19,36 @@ if(loginForm){
     .addField('#password', [
       {
         rule: 'required',
-        errorMessage: 'Vui lòng nhập mật khẩu',
+        errorMessage: 'Vui lòng nhập mật khẩu!',
       },
     ])
-
     .onSuccess((event) => {
       const email = event.target.email.value;
       const password = event.target.password.value;
-      const remember = event.target.rememberPassword.checked;
+      const rememberPassword = event.target.rememberPassword.checked;
       
+      const dataFinal = {
+        email: email,
+        password: password
+      }
+
+      fetch(`/${pathAdmin}/account/login`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          drawNotyf(data.code, data.message);
+          window.location.href = `/${pathAdmin}/dashboard`;
+        }
+      })
     })
 }
 // end loginForm

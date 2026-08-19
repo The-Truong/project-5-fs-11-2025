@@ -6,6 +6,10 @@ const router = express.Router();
 
 router.get('/login', accountController.login);
 
+router.post('/login', 
+  accountValidate.loginPost,
+  accountController.loginPost);
+
 router.get('/register', accountController.register);
 
 router.post('/register',
