@@ -24,4 +24,6 @@ router.get('/otp-password', accountController.otpPassword);
 
 router.get('/reset-password', accountController.resetPassword);
 
+router.get('/logout', accountController.logout);
+
 module.exports = router;

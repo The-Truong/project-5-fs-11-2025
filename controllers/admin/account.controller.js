@@ -118,3 +118,8 @@ module.exports.resetPassword = (req, res) => {
     pageTitle: 'Đổi mật khẩu',
   });
 }
+
+module.exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.redirect(`/${pathAdmin}/account/login`);
+}

@@ -23,6 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // thêm biến toàn cục trong pug
 app.locals.pathAdmin = pathAdmin;
 
+// thêm biến toàn cục trong backend
+global.pathAdmin = pathAdmin;
+
 // cho phép gửi data lên ở dạng json
 app.use(express.json());
 
