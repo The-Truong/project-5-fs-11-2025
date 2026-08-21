@@ -1,6 +1,9 @@
 const AccountAdmin = require('../../models/account-admin.model');
+const ForgotPassword = require('../../models/forgot-password.model')
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const { randomNumber } = require('../../helpers/generate.helper');
+const { sendMail } = require('../../helpers/mail.helper');
 
 module.exports.login = (req, res) => {
   res.render('admin/pages/login', {
@@ -106,6 +109,135 @@ module.exports.forgotPassword = (req, res) => {
   res.render('admin/pages/forgot-password', {
     pageTitle: 'Quên mật khẩu',
   });
+}
+
+module.exports.forgotPasswordPost = async (req, res) => {
+  const { email } = req.body;
+  
+  //kiểm tra email có tồn tại trong forgotpassword không
+  const exitEmail = await ForgotPassword.findOne({
+    email: email,
+  })
+
+  if(exitEmail){
+    res.json({
+      code: "error",
+      message: "Vui lòng gửi lại yêu cầu sau 5 phút!"
+    });
+    return;
+  }
+  //tạo mã otp
+  const otp = randomNumber(4);
+
+  //lưu vào bộ sưu tập forgotpassword: email và otp, sau 5 phút tự xóa bản ghi
+  const newRecord = new ForgotPassword({
+    email: email,
+    otp: otp,
+    expireAt: Date.now() + 5 * 60 * 1000,
+  })
+
+  await newRecord.save();
+  //gửi email tự động cho khách hàng
+  // tnxq jkxu ofhk fht
+  const subject = `Mã OTP lấy lại mật khẩu trang quản lý`;
+  const content = `
+    <!DOCTYPE html>
+    <html lang="vi">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Mã OTP lấy lại mật khẩu</title>
+      <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          background-color: #f4f6f9;
+          margin: 0;
+          padding: 0;
+        }
+        .email-container {
+          max-width: 500px;
+          margin: 40px auto;
+          background-color: #ffffff;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        .email-header {
+          background-color: #10b981;
+          color: #ffffff;
+          text-align: center;
+          padding: 24px 20px;
+        }
+        .email-header h1 {
+          margin: 0;
+          font-size: 20px;
+          font-weight: 600;
+        }
+        .email-body {
+          padding: 32px 24px;
+          color: #334155;
+          line-height: 1.6;
+        }
+        .otp-box {
+          background-color: #ecfdf5;
+          border: 2px dashed #10b981;
+          border-radius: 8px;
+          text-align: center;
+          padding: 16px;
+          margin: 24px 0;
+        }
+        .otp-code {
+          font-size: 32px;
+          font-weight: bold;
+          color: #059669;
+          letter-spacing: 6px;
+        }
+        .warning-text {
+          font-size: 13px;
+          color: #ef4444;
+          background-color: #fef2f2;
+          padding: 10px 12px;
+          border-radius: 6px;
+          margin-top: 16px;
+        }
+        .email-footer {
+          background-color: #f8fafc;
+          text-align: center;
+          padding: 16px;
+          font-size: 12px;
+          color: #94a3b8;
+          border-top: 1px solid #e2e8f0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="email-container">
+        <div class="email-header">
+          <h1>Yêu cầu lấy lại mật khẩu</h1>
+        </div>
+        <div class="email-body">
+          <p>Xin chào,</p>
+          <p>Chúng tôi đã nhận được yêu cầu lấy lại mật khẩu cho tài khoản trang quản lý của bạn. Vui lòng sử dụng mã OTP dưới đây để hoàn tất quá trình:</p>
+          
+          <div class="otp-box">
+            <div class="otp-code">${otp}</div>
+          </div>
+
+          <p style="margin-bottom: 8px;">⏰ Mã OTP này có hiệu lực trong <strong>5 phút</strong>.</p>
+          
+          <div class="warning-text">
+            ⚠️ <strong>Lưu ý bảo mật:</strong> Vui lòng tuyệt đối không chia sẻ mã này với bất kỳ ai để bảo vệ tài khoản của bạn.
+          </div>
+        </div>
+        <div class="email-footer">
+          <p>Nếu bạn không gửi yêu cầu này, vui lòng bỏ qua email hoặc liên hệ với Quản trị viên.</p>
+          <p>&copy; Trang Quản Lý. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+  sendMail(email, subject, content);
 }
 
 module.exports.otpPassword = (req, res) => {

@@ -20,6 +20,10 @@ router.get('/register-success', accountController.registerSuccess);
 
 router.get('/forgot-password', accountController.forgotPassword);
 
+router.post('/forgot-password',
+    accountValidate.forgotPasswordPost,
+    accountController.forgotPasswordPost);
+
 router.get('/otp-password', accountController.otpPassword);
 
 router.get('/reset-password', accountController.resetPassword);
