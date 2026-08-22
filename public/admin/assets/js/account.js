@@ -201,7 +201,7 @@ if(forgotPasswordForm){
         }
         if(data.code == "success"){
           drawNotyf(data.code, data.message);
-          window.location.href = `/${pathAdmin}/account/otp-password`;
+          window.location.href = `/${pathAdmin}/account/otp-password?email=${email}`;
         }
       })
     })
@@ -223,7 +223,31 @@ if(otpPasswordForm){
   ])
   .onSuccess((event) => {
     const otp = event.target.otp.value;
-    console.log(otp)
+    const email = event.target.email.value;
+
+    const dataFinal = {
+      otp: otp,
+      email: email,
+    }
+
+    fetch(`/${pathAdmin}/account/otp-password`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(dataFinal),
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.code == "error"){
+        notyf.error(data.message);
+      }
+      if(data.code == "success"){
+        drawNotyf(data.code, data.message);
+        window.location.href = `/${pathAdmin}/account/reset-password`;
+      }
+    })
+
   })
 }
 // end forgotPassWordForm

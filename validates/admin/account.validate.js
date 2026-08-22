@@ -110,3 +110,30 @@ module.exports.forgotPasswordPost = (req, res, next) => {
   }
   next();
 }
+
+module.exports.otpPasswordPost = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .required()
+      .email()
+      .messages({
+        "string.empty" : "Vui lòng nhập email!",
+        "string.email" : "Email không đúng định dạng!",
+      }),
+    otp: Joi.string()
+      .required()
+      .messages({
+        "string.empty": "Vui lòng nhập OTP!",
+      })
+  })
+  const { error } = schema.validate(req.body);
+
+  if(error){
+    res.json({
+      code: "error",
+      message: error.details[0].message
+    })
+    return;
+  }
+  next();
+}

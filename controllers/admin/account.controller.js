@@ -113,7 +113,18 @@ module.exports.forgotPassword = (req, res) => {
 
 module.exports.forgotPasswordPost = async (req, res) => {
   const { email } = req.body;
-  
+  //kiểm tra email đã từng được đăng ký chưa
+  const existEmailMain = await AccountAdmin.findOne({
+    email: email,
+  })
+
+  if(!existEmailMain){
+    res.json({
+      code: "error",
+      message: "Email này chưa được đăng ký!"
+    })
+    return;
+  }
   //kiểm tra email có tồn tại trong forgotpassword không
   const exitEmail = await ForgotPassword.findOne({
     email: email,
@@ -238,12 +249,64 @@ module.exports.forgotPasswordPost = async (req, res) => {
     </html>
   `;
   sendMail(email, subject, content);
+
+  res.json({
+    code: "success",
+    message: "Gửi mã OTP thành công"
+  })
 }
 
-module.exports.otpPassword = (req, res) => {
+module.exports.otpPassword = async (req, res) => {
+  const { email } = req.query;
+  
   res.render('admin/pages/otp-password', {
     pageTitle: 'Nhập mã OTP',
+    email: email,
   });
+}
+
+module.exports.otpPasswordPost = async (req, res) => {
+  const { otp, email } = req.body;
+  
+  const existRecord = await ForgotPassword.findOne({
+    email: email,
+    otp: otp
+  })
+
+  if(!existRecord){
+    res.json({
+      code: "error",
+      message: "Mã OTP không chính xác!"
+    })
+    return;
+  }
+
+  const existAccount = await AccountAdmin.findOne({
+    email: email,
+  })
+  
+  const token = jwt.sign(
+    {
+      id: existAccount.id,
+      email: existAccount.email,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '1d',
+    }
+  );
+  
+  res.cookie('token', token, {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true, //chỉ cho phép gửi bên server
+    sameSite: 'strict',
+  });
+
+  res.json({
+    code: "success",
+    message: "Xác thực thành công!",
+  });
+  
 }
 
 module.exports.resetPassword = (req, res) => {
