@@ -284,7 +284,7 @@ module.exports.otpPasswordPost = async (req, res) => {
   const existAccount = await AccountAdmin.findOne({
     email: email,
   })
-  
+
   const token = jwt.sign(
     {
       id: existAccount.id,
@@ -313,6 +313,48 @@ module.exports.resetPassword = (req, res) => {
   res.render('admin/pages/reset-password', {
     pageTitle: 'Đổi mật khẩu',
   });
+}
+
+module.exports.resetPasswordPost = async (req, res) => {
+  try {
+    const { password } = req.body;
+    const { token } = req.cookies;
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { id, email } = decoded;
+        
+    const existAccount = await AccountAdmin.findOne({
+      _id: id,
+      email: email,
+      status: "active"
+    })
+
+    if(!existAccount){
+      res.clearCookies("token");
+      res.json({
+        code: "error",
+        message: "Không tìm thấy tài khoản!",
+      })
+      return;
+    }
+
+    const salt = bcrypt.genSaltSync(10); // tạo chuỗi ngẫu nhiên 10 ký tự
+    const hashPassword = bcrypt.hashSync(password, salt);
+
+    existAccount.password = hashPassword;
+    await existAccount.save();
+
+    res.json({
+      code: "success",
+      message: "Đổi mật khẩu thành công",
+    })
+  } catch (error) {
+    console.log(error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
 }
 
 module.exports.logout = (req, res) => {
