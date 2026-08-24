@@ -185,12 +185,29 @@ if(categoryCreateForm){
       const status = event.target.status.value;
       const avatar = filePond.avatar.getFile()?.file || null;
       const description = tinymce.get("description").getContent();
-      console.log(name)
-      console.log(parent)
-      console.log(position)
-      console.log(status)
-      console.log(avatar)
-      console.log(description)
+      
+      const formData = new FormData();
+      formData.append("name" ,name);
+      formData.append("parent" ,parent);
+      formData.append("position" ,position);
+      formData.append("status" ,status);
+      // formData.append("avatar" ,avatar);
+      formData.append("description" ,description);
+
+      fetch(`/${pathAdmin}/category/create`, {
+        method: "POST",
+        body: formData,
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          drawNotyf(data.code, data.message);
+          window.location.reload();
+        }
+      })
     })
 }
 // end categoryCreateForm
