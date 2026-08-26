@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 
 const schema = new mongoose.Schema({ 
     name: String,
@@ -9,6 +11,11 @@ const schema = new mongoose.Schema({
     description: String,
     createdBy: String,
     updatedBy: String,
+    slug: { 
+      type: String,
+      slug: "name",
+      unique: true,
+    }
   },
   { 
     timestamps: true //tự động sinh thêm trường createAt và updateAt
