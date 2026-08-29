@@ -1,4 +1,5 @@
 const Category = require("../../models/category.model");
+const { buildCategoryTree } = require("../../helpers/category.helper");
 
 module.exports.list = (req, res) => {
   res.render('admin/pages/category-list', {
@@ -6,9 +7,13 @@ module.exports.list = (req, res) => {
   });
 }
 
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  const categoryList = await Category.find();
+  const categoryTree = buildCategoryTree(categoryList,"");
+
   res.render('admin/pages/category-create', {
     pageTitle: 'Tạo danh mục',
+    categoryList: categoryTree,
   });
 }
 
