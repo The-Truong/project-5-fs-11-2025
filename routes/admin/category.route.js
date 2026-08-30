@@ -15,5 +15,12 @@ router.post('/create',
     upload.single("avatar"),
     categoryValidate.createPost,
     categoryController.createPost);
+// : để tạo ra đường dẫn động
+router.get('/edit/:id', categoryController.edit);
+
+router.patch('/edit/:id',
+    upload.single("avatar"),
+    categoryValidate.createPost,
+    categoryController.editPatch);
 
 module.exports = router;

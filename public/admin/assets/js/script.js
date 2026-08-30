@@ -103,9 +103,18 @@ let filePond = {};
 if(listInput.length > 0) {
   FilePond.registerPlugin(FilePondPluginImagePreview);
   FilePond.registerPlugin(FilePondPluginFileValidateType);
+
   listInput.forEach(item => {
+    const files = []
+    const imageDefault = item.getAttribute("image-default");
+    if(imageDefault){
+      files.push({
+        source: imageDefault, //đường dẫn ảnh
+      })
+    }
     filePond[item.name] = FilePond.create(item, {
       labelIdle: "+",
+      files: files,
     });
   })
 }
@@ -211,6 +220,52 @@ if(categoryCreateForm){
     })
 }
 // end categoryCreateForm
+
+// categoryEditForm
+const categoryEditForm = document.querySelector("#categoryEditForm");
+if(categoryEditForm){
+  const validator = new JustValidate(categoryEditForm);
+
+  validator
+    .addField('#name', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập tên danh mục!',
+      },
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const name = event.target.name.value;
+      const parent = event.target.parent.value;
+      const position = event.target.position.value;
+      const status = event.target.status.value;
+      const avatar = filePond.avatar.getFile()?.file || null;
+      const description = tinymce.get("description").getContent();
+      
+      const formData = new FormData();
+      formData.append("name" ,name);
+      formData.append("parent" ,parent);
+      formData.append("position" ,position);
+      formData.append("status" ,status);
+      formData.append("avatar" ,avatar);
+      formData.append("description" ,description);
+
+      fetch(`/${pathAdmin}/category/edit/${id}`, {
+        method: "PATCH",
+        body: formData,
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          notyf.success(data.message);
+        }
+      })
+    })
+}
+// end categoryEditForm
 
 // tourCreateForm
 const tourCreateForm = document.querySelector("#tourCreateForm");
