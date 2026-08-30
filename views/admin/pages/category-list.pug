@@ -53,27 +53,33 @@ block main
             th Cập nhật bởi
             th Hành động
         tbody
-          tr
-            td 
-              input.inner-check(type="checkbox" name="selectItem")
-            td Danh mục 1
-            td
-              img.inner-avatar(src="/admin/assets/images/section-4.png" alt="avatar")
-            td 1
-            td
-              .tag.tag-green Hoạt động
-            td 
-              div Lê Văn A
-              .inner-date 01/01/2024
-            td
-              div Lê Văn A
-              .inner-date 16:30 - 20/10/2024
-            td
-              .inner-action
-                a.inner-edit(href="#") 
-                  i.fa-regular.fa-pen-to-square
-                a.inner-remove(href="#")
-                  i.fa-regular.fa-trash-can
+          each item in categoryList
+            tr
+              td 
+                input.inner-check(type="checkbox" name="selectItem")
+              td #{item.name}
+              td
+                img.inner-avatar(src=item.avatar alt="avatar")
+              td #{item.position}
+              td
+                if(item.status == "active")
+                  .tag.tag-green Hoạt động
+                else if(item.status == "inactive")
+                  .tag.tag-red Tạm dừng
+              td 
+                if(item.createdBy)
+                  div #{item.createdByName}
+                  .inner-date #{item.createdAtFormat}
+              td
+                if(item.updatedBy)
+                  div #{item.updatedByName}
+                  .inner-date #{item.updatedAtFormat}
+              td
+                .inner-action
+                  a.inner-edit(href="#") 
+                    i.fa-regular.fa-pen-to-square
+                  a.inner-remove(href="#")
+                    i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78
     .inner-select
