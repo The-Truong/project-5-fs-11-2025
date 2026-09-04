@@ -15,7 +15,13 @@ const schema = new mongoose.Schema({
       type: String,
       slug: "name",
       unique: true,
-    }
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedBy: String,
+    deletedAt: Date,
   },
   { 
     timestamps: true //tự động sinh thêm trường createAt và updateAt

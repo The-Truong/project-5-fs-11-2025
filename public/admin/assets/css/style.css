@@ -880,9 +880,10 @@ a {
 }
 
 .table-2 .inner-avatar {
-  border-radius: 6px;
-  aspect-ratio: 1/1;
   width: 60px;
+  aspect-ratio: 1/1;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .table-2 .inner-date {

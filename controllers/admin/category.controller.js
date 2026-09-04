@@ -5,9 +5,11 @@ const moment = require("moment");
 
 module.exports.list = async (req, res) => {
   const categoryList = await Category
-  .find({})
+  .find({
+    deleted: false,
+  })
   .sort({
-    position: "desc"
+    position: "desc",
   });
 
   for (const item of categoryList){
@@ -134,6 +136,39 @@ module.exports.editPatch = async (req, res) => {
     res.json({
       code: "success",
       message: "Cập nhật danh mục thành công!"
+    })
+  } catch (error) {
+    console.log("lỗi " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!"
+    })
+  }
+}
+
+module.exports.deletePatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const categoryDetail = await Category.findById(id);
+    if(!categoryDetail){
+      res.json({
+        code: "error",
+        message: "Danh mục không tồn tại!",
+      })
+      return;
+    }
+
+    await Category.updateOne({
+      _id: id
+    }, {
+      deleted: true,
+      deletedBy: res.locals.account.id,
+      deletedAt: Date.now(),
+    });
+
+    res.json({
+      code: "success",
+      message: "Xóa danh mục thành công!"
     })
   } catch (error) {
     console.log("lỗi " + error);

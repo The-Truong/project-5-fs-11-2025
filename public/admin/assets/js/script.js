@@ -654,3 +654,30 @@ if(profileChangePasswordForm){
     })
 }
 // end profileChangePasswordForm
+
+// button delete
+const listButtonDelete = document.querySelectorAll("[button-delete]");
+if(listButtonDelete.length > 0) {
+  listButtonDelete.forEach(button => {
+    button.addEventListener("click", () => {
+      const isConfirm = confirm("Vui lòng xác nhận xóa!");
+      const dataApi = button.getAttribute("data-api");
+      console.log(dataApi);
+      if(!isConfirm) return;
+      fetch(dataApi,{
+        method: "PATCH",
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notyf.error(data.message);
+          }
+          if(data.code == "success") {
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
+    })
+  })
+}
+// end button delete

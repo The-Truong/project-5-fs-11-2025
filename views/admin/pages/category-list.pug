@@ -78,7 +78,11 @@ block main
                 .inner-action
                   a.inner-edit(href=`/${pathAdmin}/category/edit/${item.id}`) 
                     i.fa-regular.fa-pen-to-square
-                  a.inner-remove(href="#")
+                  a.inner-remove(
+                    href="javascript:;"
+                    button-delete
+                    data-api=`/${pathAdmin}/category/delete/${item.id}`
+                  )
                     i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78
