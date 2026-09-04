@@ -686,10 +686,11 @@ if(listButtonDelete.length > 0) {
 const listFilter = document.querySelectorAll("[filter]");
 if(listFilter.length > 0) {
   const url = new URL(window.location.href);
-  
+  const listName = [];
   listFilter.forEach(filter => {
     const name = filter.name;
-  
+
+    listName.push(name);
     filter.addEventListener("change", () => {
       const value = filter.value;
       if(value){
@@ -707,5 +708,19 @@ if(listFilter.length > 0) {
     }
   })
   
+  // button reset filter
+  const buttonResetFilter = document.querySelector("[button-reset-filter]");
+  if(buttonResetFilter){
+    buttonResetFilter.addEventListener("click", () => {
+      const url = new URL(window.location.href);
+      listName.forEach(name => {
+        url.searchParams.delete(name);
+      })
+      window.location.href = url.href;
+    })
+  }
+  // end button reset filter
+
 }
 //end filter
+
