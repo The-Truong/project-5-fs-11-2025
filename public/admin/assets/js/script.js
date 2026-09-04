@@ -681,3 +681,23 @@ if(listButtonDelete.length > 0) {
   })
 }
 // end button delete
+
+//filter
+const filter = document.querySelector("[filter]");
+if(filter) {
+  const url = new URL(window.location.href);
+  const name = filter.name;
+
+  filter.addEventListener("change", () => {
+    const value = filter.value;
+    if(value) url.searchParams.set(name,value);
+    else url.searchParams.delete(name,value);
+    window.location.href = url.href;
+  })
+
+  const valueCurrent = url.searchParams.get(name);
+  if(valueCurrent) {
+    filter.value = valueCurrent;
+  }
+}
+//end filter
