@@ -20,6 +20,21 @@ module.exports.list = async (req, res) => {
   }
   //hết lọc theo người tạo
 
+  //lọc theo ngày tạo
+  if(req.query.startDate) {
+     find.createdAt = {
+      $gte: new Date(req.query.startDate)
+     }
+  }
+
+  if(req.query.endDate) {
+    const endDate = new Date(req.query.endDate);
+     find.createdAt = {
+      ...find.createdAt,
+      $lte: endDate.setUTCHours(23,59,59,999)
+     }
+  }
+  //hết lọc theo ngày tạo
   const categoryList = await Category
   .find(find)
   .sort({
