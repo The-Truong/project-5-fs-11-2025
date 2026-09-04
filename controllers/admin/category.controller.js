@@ -212,3 +212,57 @@ module.exports.deletePatch = async (req, res) => {
     })
   }
 }
+
+module.exports.changeMultiPatch = async (req, res) => {
+  try {
+    const adminId = res.locals.account.id;
+    const { listId, option } = req.body;
+
+    switch (option) {
+      case "active":
+      case "inactive":
+        await Category.updateMany({
+          _id: { 
+            $in: listId
+          }
+        }, {
+          status: option,
+          updatedBy: adminId,
+          updatedAt: Date.now(),
+        })
+        res.json({
+          code: "success",
+          message: "Đã cập nhật trạng thái!"
+        })
+        break;
+      case "delete":
+        await Category.updateMany({
+          _id: { 
+            $in: listId
+          }
+        }, {
+          deleted: true,
+          deletedBy: adminId,
+          deletedAt: Date.now(),
+        })
+        res.json({
+          code: "success",
+          message: "Cập nhật danh mục thành công!"
+        })
+        break;
+      default:
+        res.json({
+          code: "error",
+          message: "Hành động không hợp lệ!"
+        })
+        break;
+    }
+    
+  } catch (error) {
+    console.log("lỗi " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!"
+    })
+  }
+}

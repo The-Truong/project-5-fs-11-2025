@@ -25,4 +25,5 @@ router.patch('/edit/:id',
 
 router.patch('/delete/:id', categoryController.deletePatch);
 
+router.patch('/change-multi', categoryController.changeMultiPatch);
 module.exports = router;
