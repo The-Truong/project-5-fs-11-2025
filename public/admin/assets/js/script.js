@@ -786,3 +786,24 @@ if(changeMulti) {
 }
 // end change multi
 
+//input search
+const inputSearch = document.querySelector("[input-search]");
+if(inputSearch) {
+  const url = new URL(window.location.href);
+  inputSearch.addEventListener("keyup", (event) => {
+    if(event.key != "Enter") return;
+    const value = event.target.value;
+    if(value) {
+      url.searchParams.set("keyword", value);
+    }else {
+      url.searchParams.delete("keyword");
+    }
+    window.location.href = url.href;
+  })
+
+  const valueCurrent = url.searchParams.get("keyword");
+  if(valueCurrent){
+    inputSearch.value = valueCurrent.trim().replace(/\s+/g, " ");
+  }
+}
+// end input search
