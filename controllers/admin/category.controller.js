@@ -47,11 +47,31 @@ module.exports.list = async (req, res) => {
   }
   //hết tìm kiếm
 
+  //phân trang
+  const limitItem = 2;
+  let page = 1;
+  if(req.query.page && parseInt(req.query.page) > 0) {
+    page = parseInt(req.query.page);
+  }
+  const skip = (page - 1) * limitItem;
+  const totalRecord = await Category.countDocuments(find);
+  const totalPage = Math.ceil(totalRecord / limitItem);
+  const pagination = {
+    totalPage: totalPage,
+    totalRecord: totalRecord,
+    skip: skip
+  }
+  //hết phân trang
+
   const categoryList = await Category
   .find(find)
+  .limit(limitItem)
+  .skip(skip)
   .sort({
     position: "desc",
   });
+  
+
 
   for (const item of categoryList){
     if(item.createdBy){
@@ -74,11 +94,14 @@ module.exports.list = async (req, res) => {
     pageTitle: 'Quản lý danh mục',
     categoryList: categoryList,
     accountList: accountList,
+    pagination: pagination
   });
 }
 
 module.exports.create = async (req, res) => {
-  const categoryList = await Category.find();
+  const categoryList = await Category.find({
+    deleted: false,
+  });
   const categoryTree = buildCategoryTree(categoryList,"");
 
   res.render('admin/pages/category-create', {
@@ -131,7 +154,9 @@ module.exports.edit = async (req, res) => {
       res.redirect(`/${pathAdmin}/category/list`);
       return;
     }
-    const categoryList = await Category.find();
+    const categoryList = await Category.find({
+      deleted: false,
+    });
     const categoryTree = buildCategoryTree(categoryList,"");
 
     res.render('admin/pages/category-edit', {

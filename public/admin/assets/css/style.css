@@ -922,7 +922,7 @@ a {
   gap: 20px;
 }
 
-.box-pagination .inner-title {
+.box-pagination .inner-label {
   color: var(--color-text);
   font-weight: 600;
   font-size: 14px;

@@ -807,3 +807,24 @@ if(inputSearch) {
   }
 }
 // end input search
+
+//select pagination
+const selectPagination = document.querySelector("[select-pagination]");
+if(selectPagination) {
+  const url = new URL(window.location.href);
+  selectPagination.addEventListener("change", () => {
+    const value = selectPagination.value;
+    if(value) {
+      url.searchParams.set("page", value);
+    }else {
+      url.searchParams.delete("page");
+    }
+    window.location.href = url.href;
+  })
+
+  const valueCurrent = url.searchParams.get("page");
+  if(valueCurrent) {
+    selectPagination.value = valueCurrent;
+  }
+}
+//ứn select pagination
