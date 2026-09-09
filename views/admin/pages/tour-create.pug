@@ -1,4 +1,5 @@
 extends ../layouts/default.pug
+include ../mixins/option.pug
 
 block main
   .box-title Tạo tour
@@ -11,8 +12,7 @@ block main
         label.inner-label(for="category") Danh mục
         select(id="category" name="category")
           option(value="") -- Chọn danh mục --
-          option(value="danh-muc-1") Danh mục 1
-          option(value="danh-muc-2") Danh mục 2
+          +options(categoryList, 0)
       .inner-group
         label.inner-label(for="position") Vị trí
         input(type="number" id="position" name="position")
@@ -64,15 +64,15 @@ block main
       .inner-group
         label.inner-label Những địa điểm có tour
         .inner-checkbox-list
-          .inner-checkbox-item
-            input(type="checkbox" id="location-1" name="locations" value="1")
-            label(for="location-1") Hà Nội
-          .inner-checkbox-item
-            input(type="checkbox" id="location-2" name="locations" value="2")
-            label(for="location-2") Đà Nẵng
-          .inner-checkbox-item
-            input(type="checkbox" id="location-3" name="locations" value="3")
-            label(for="location-3") Nha Trang
+          each item in cityList
+            .inner-checkbox-item
+              input(
+                type="checkbox" 
+                id=`location-${item.id}` 
+                name="locations" 
+                value=item.id
+                )
+              label(for=`location-${item.id}`) #{item.name}
       .inner-group
         label.inner-label(for="time") Thời gian
         input(type="text" id="time" name="time")

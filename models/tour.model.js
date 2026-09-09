@@ -1,8 +1,42 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const slug = require("mongoose-slug-updater");
+mongoose.plugin(slug);
 
-const schema = new mongoose.Schema({ 
+const schema = new mongoose.Schema(
+  { 
     name: String,
-    vehicle: String
+    category: String,
+    position: Number,
+    status: String,
+    avatar: String,
+    priceAdult: Number,
+    priceChildrent: Number,
+    priceBaby: Number,
+    priceNewAdult: Number,
+    priceNewChildrent: Number,
+    priceNewBaby: Number,
+    stockAdult: Number,
+    stockChildrent: Number,
+    stockBaby: Number,
+    locations: Array,
+    time: String,
+    vehicle: String,
+    departureDate: Date,
+    information: String,
+    schedules: Array,
+    createdBy: String,
+    updateBy: String,
+    slug: {
+      type: String,
+      slug: "name",
+      unique: true
+    },
+    deleted: {
+      type: Boolean,
+      default: false
+    },
+    deletedBy: String,
+    deletedAt: Date,
   },
   { 
     timestamps: true

@@ -322,26 +322,43 @@ if(tourCreateForm){
       })
       // end list schedule
 
-      console.log(name)
-      console.log(category)
-      console.log(position)
-      console.log(status)
-      console.log(avatar)
-      console.log(priceAdult)
-      console.log(priceChildrent)
-      console.log(priceBaby)
-      console.log(priceNewAdult)
-      console.log(priceNewChildrent)
-      console.log(priceNewBaby)
-      console.log(stockAdult)
-      console.log(stockChildrent)
-      console.log(stockBaby)
-      console.log(location)
-      console.log(time)
-      console.log(vehicle)
-      console.log(departureDate)
-      console.log(information)
-      console.log(schedule)
+      //gửi dữ liệu không được phép ở dạng mảng phải là chuỗi
+      const formData = new FormData();
+      formData.append("name" ,name);
+      formData.append("category" ,category);
+      formData.append("position" ,position);
+      formData.append("status" ,status);
+      formData.append("avatar" ,avatar);
+      formData.append("priceAdult" ,priceAdult);
+      formData.append("priceChildrent" ,priceChildrent);
+      formData.append("priceBaby" ,priceBaby);
+      formData.append("priceNewAdult" ,priceNewAdult);
+      formData.append("priceNewChildrent" ,priceNewChildrent);
+      formData.append("priceNewBaby" ,priceNewBaby);
+      formData.append("stockAdult" ,stockAdult);
+      formData.append("stockChildrent" ,stockChildrent);
+      formData.append("stockBaby" ,stockBaby);
+      formData.append("locations" ,JSON.stringify(location));
+      formData.append("time" ,time);
+      formData.append("vehicle" ,vehicle);
+      formData.append("departureDate" ,departureDate);
+      formData.append("information" ,information);
+      formData.append("schedules" ,JSON.stringify(schedule));
+
+      fetch(`/${pathAdmin}/tour/create`, {
+        method: "POST",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error"){
+            notyf.error(data.message);
+          }
+          if(data.code == "success"){
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
     })
 }
 // end tourCreateForm
