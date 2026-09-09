@@ -5,7 +5,7 @@ module.exports.createPost = (req, res, next) => {
     name: Joi.string()
       .required()
       .messages({
-        "string.empty" : "Vui lòng nhập email!",
+        "string.empty" : "Vui lòng nhập tên danh mục!",
       }),
     parent: Joi.string().allow(''),
     position: Joi.string().allow(''),
