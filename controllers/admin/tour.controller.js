@@ -98,9 +98,34 @@ module.exports.createPost = async (req, res) => {
   }
 }
 
-module.exports.trash = (req, res) => {
+module.exports.trash = async (req, res) => {
+  const find = {
+    deleted: true,
+  }
+
+  const tourList = await Tour
+    .find(find)
+    .sort({
+      deletedAt: 'desc',
+    });
+
+    for(const item of tourList) {
+      if(item.createdBy) {
+        const createdBy = await AccountAdmin.findById(item.createdBy);
+        item.createdByName = createdBy ? createdBy.fullName : "";
+        item.createdAtFormat = moment(item.createdAt).format("HH:mm - DD/MM/YYYY");
+      }
+
+      if(item.deletedBy){
+        const deletedBy = await AccountAdmin.findById(item.deletedBy);
+        item.deletedByName = deletedBy ? deletedBy.fullName : "";
+        item.deletedAtFormat = moment(item.updatedAt).format("HH:mm - DD/MM/YYYY");
+      }
+    }
+
   res.render('admin/pages/tour-trash', {
     pageTitle: 'Thùng rác tour',
+    tourList: tourList,
   });
 }
 
