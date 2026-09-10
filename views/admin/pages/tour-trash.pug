@@ -5,12 +5,12 @@ block main
   
   .section-5
     .inner-wrap
-      .inner-action
+      .inner-action(change-multi data-api=`/${pathAdmin}/tour/change-multi`)
         .inner-item
-          select(name="user")
+          select
             option(value="") -- Hành động --
-            option(value="1") Tạm dừng
-            option(value="2") Hoạt động
+            option(value="restore") Khôi phục
+            option(value="delete-destroy") Xóa vĩnh viễn
         button Áp dụng
       a.inner-create(href=`/${pathAdmin}/tour/list`) Quay lại
       .inner-search
