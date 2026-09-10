@@ -284,7 +284,7 @@ module.exports.changeMultiPatch = async (req, res) => {
         })
         res.json({
           code: "success",
-          message: "Cập nhật danh mục thành công!"
+          message: "Đã xóa!"
         })
         break;
       default:

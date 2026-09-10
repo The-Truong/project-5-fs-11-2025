@@ -37,12 +37,13 @@ block main
         | Xóa bộ lọc
   .section-5
     .inner-wrap
-      .inner-action
+      .inner-action(change-multi data-api=`/${pathAdmin}/tour/change-multi`)
         .inner-item
-          select(name="user")
+          select
             option(value="") -- Hành động --
-            option(value="1") Tạm dừng
-            option(value="2") Hoạt động
+            option(value="active") Hoạt động
+            option(value="inactive") Tạm dừng
+            option(value="delete") Xóa
         button Áp dụng
       .inner-search
         i.fa-solid.fa-magnifying-glass
@@ -55,7 +56,7 @@ block main
         thead
           tr
             th 
-              input.inner-checkall(type="checkbox" name="selectAll")
+              input.inner-checkall(type="checkbox" check-all)
             th Tên tour
             th Ảnh đại diện
             th Giá
@@ -69,7 +70,7 @@ block main
           each item in tourList
             tr
               td 
-                input.inner-check(type="checkbox" name="selectItem")
+                input.inner-check(type="checkbox" value=item.id check-item)
               td #{item.name}
               td
                 img.inner-avatar(src=item.avatar alt="avatar")
