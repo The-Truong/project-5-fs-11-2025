@@ -97,7 +97,7 @@ block main
                   .inner-date #{item.updatedAtFormat}
               td
                 .inner-action
-                  a.inner-edit(href="#") 
+                  a.inner-edit(href=`/${pathAdmin}/tour/edit/${item.id}`) 
                     i.fa-regular.fa-pen-to-square
                   a.inner-remove(href="#")
                     i.fa-regular.fa-trash-can

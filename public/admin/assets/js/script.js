@@ -344,7 +344,6 @@ if(tourCreateForm){
       formData.append("departureDate" ,departureDate);
       formData.append("information" ,information);
       formData.append("schedules" ,JSON.stringify(schedule));
-
       fetch(`/${pathAdmin}/tour/create`, {
         method: "POST",
         body: formData,
@@ -362,6 +361,102 @@ if(tourCreateForm){
     })
 }
 // end tourCreateForm
+
+// tourEditForm
+const tourEditForm = document.querySelector("#tourEditForm");
+if(tourEditForm){
+  const validator = new JustValidate(tourEditForm);
+
+  validator
+    .addField('#name', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập tên tour!',
+      },
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const name = event.target.name.value;
+      const category = event.target.category.value;
+      const position = event.target.position.value;
+      const status = event.target.status.value;
+      const avatar = filePond.avatar.getFile()?.file || null;
+      const priceAdult = event.target.priceAdult.value;
+      const priceChildrent = event.target.priceChildrent.value;
+      const priceBaby = event.target.priceBaby.value;
+      const priceNewAdult = event.target.priceNewAdult.value;
+      const priceNewChildrent = event.target.priceNewChildrent.value;
+      const priceNewBaby = event.target.priceNewBaby.value;
+      const stockAdult = event.target.stockAdult.value;
+      const stockChildrent = event.target.stockChildrent.value;
+      const stockBaby = event.target.stockBaby.value;
+      const location = [];
+      const time = event.target.time.value;
+      const vehicle = event.target.vehicle.value;
+      const departureDate = event.target.departureDate.value;
+      const information = tinymce.get("information").getContent();
+      const schedule = [];
+      // location
+      const listLocationChecked = document.querySelectorAll(`[name="locations"]:checked`);
+      listLocationChecked.forEach(input => {
+        location.push(input.value);
+      })
+      // end location
+
+      // list schedule
+      const listSchedule = document.querySelectorAll(".inner-schedule .inner-schedule-item");
+      listSchedule.forEach(item => {
+        const inputTitle = item.querySelector(".inner-schedule-head input");
+        const title = inputTitle.value;
+        const textarea = item.querySelector(".inner-schedule-body textarea");
+        const id = textarea.id;
+        const contentSchedule = tinymce.get(id).getContent();
+        schedule.push({
+          title: title,
+          content: contentSchedule
+        })
+      })
+      // end list schedule
+
+      //gửi dữ liệu không được phép ở dạng mảng phải là chuỗi
+      const formData = new FormData();
+      formData.append("name" ,name);
+      formData.append("category" ,category);
+      formData.append("position" ,position);
+      formData.append("status" ,status);
+      formData.append("avatar" ,avatar);
+      formData.append("priceAdult" ,priceAdult);
+      formData.append("priceChildrent" ,priceChildrent);
+      formData.append("priceBaby" ,priceBaby);
+      formData.append("priceNewAdult" ,priceNewAdult);
+      formData.append("priceNewChildrent" ,priceNewChildrent);
+      formData.append("priceNewBaby" ,priceNewBaby);
+      formData.append("stockAdult" ,stockAdult);
+      formData.append("stockChildrent" ,stockChildrent);
+      formData.append("stockBaby" ,stockBaby);
+      formData.append("locations" ,JSON.stringify(location));
+      formData.append("time" ,time);
+      formData.append("vehicle" ,vehicle);
+      formData.append("departureDate" ,departureDate);
+      formData.append("information" ,information);
+      formData.append("schedules" ,JSON.stringify(schedule));
+      
+      fetch(`/${pathAdmin}/tour/edit/${id}`, {
+        method: "PATCH",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error"){
+            notyf.error(data.message);
+          }
+          if(data.code == "success"){
+            notyf.success(data.message);
+          }
+        })
+    })
+}
+// end tourEditForm
 
 // orderEditForm
 const orderEditForm = document.querySelector("#orderEditForm");
