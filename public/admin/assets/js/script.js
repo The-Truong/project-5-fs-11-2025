@@ -273,12 +273,12 @@ if(tourCreateForm){
   const validator = new JustValidate(tourCreateForm);
 
   validator
-    // .addField('#name', [
-    //   {
-    //     rule: 'required',
-    //     errorMessage: 'Vui lòng nhập tên tour!',
-    //   },
-    // ])
+    .addField('#name', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập tên tour!',
+      },
+    ])
     .onSuccess((event) => {
       const name = event.target.name.value;
       const category = event.target.category.value;

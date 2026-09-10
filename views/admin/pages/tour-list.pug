@@ -66,35 +66,41 @@ block main
             th Cập nhật bởi
             th Hành động
         tbody
-          tr
-            td 
-              input.inner-check(type="checkbox" name="selectItem")
-            td Tour Hạ Long
-            td
-              img.inner-avatar(src="/admin/assets/images/section-4.png" alt="avatar")
-            td
-              div NL: 1.900.000đ
-              div TE: 1.600.000đ
-              div EB: 1.000.000đ
-            td
-              div NL: 30
-              div TE: 20
-              div EB: 10
-            td 1
-            td
-              .tag.tag-green Hoạt động
-            td 
-              div Lê Văn A
-              .inner-date 01/01/2024
-            td
-              div Lê Văn A
-              .inner-date 16:30 - 20/10/2024
-            td
-              .inner-action
-                a.inner-edit(href="#") 
-                  i.fa-regular.fa-pen-to-square
-                a.inner-remove(href="#")
-                  i.fa-regular.fa-trash-can
+          each item in tourList
+            tr
+              td 
+                input.inner-check(type="checkbox" name="selectItem")
+              td #{item.name}
+              td
+                img.inner-avatar(src=item.avatar alt="avatar")
+              td
+                div NL: #{item.priceNewAdult.toLocaleString("vi-VN")}đ
+                div TE: #{item.priceNewChildrent.toLocaleString("vi-VN")}đ
+                div EB: #{item.priceNewBaby.toLocaleString("vi-VN")}đ
+              td
+                div NL: #{item.stockAdult}
+                div TE: #{item.stockChildrent}
+                div EB: #{item.stockBaby}
+              td #{item.position}
+              td
+                if(item.status == "active")
+                  .tag.tag-green Hoạt động
+                else if(item.status == "inactive")
+                  .tag.tag-red Tạm dừng
+              td
+                if(item.createdBy)
+                  div #{item.createdByName}
+                  .inner-date #{item.createdAtFormat}
+              td
+                if(item.updatedBy)
+                  div #{item.updatedByName}
+                  .inner-date #{item.updatedAtFormat}
+              td
+                .inner-action
+                  a.inner-edit(href="#") 
+                    i.fa-regular.fa-pen-to-square
+                  a.inner-remove(href="#")
+                    i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78
     .inner-select
