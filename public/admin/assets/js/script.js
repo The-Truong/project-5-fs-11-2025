@@ -793,6 +793,30 @@ if(listButtonDelete.length > 0) {
 }
 // end button delete
 
+//button restore
+const listButtonRestore = document.querySelectorAll("[button-restore]");
+if(listButtonRestore.length > 0) {
+  listButtonRestore.forEach(button => {
+    button.addEventListener("click", () => {
+      const dataApi = button.getAttribute("data-api");
+      fetch(dataApi,{
+        method: "PATCH",
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notyf.error(data.message);
+          }
+          if(data.code == "success") {
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
+    })
+  })
+}
+//end button restore
+
 //filter
 const listFilter = document.querySelectorAll("[filter]");
 if(listFilter.length > 0) {

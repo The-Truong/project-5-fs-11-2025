@@ -12,6 +12,7 @@ block main
             option(value="1") Tạm dừng
             option(value="2") Hoạt động
         button Áp dụng
+      a.inner-create(href=`/${pathAdmin}/tour/list`) Quay lại
       .inner-search
         i.fa-solid.fa-magnifying-glass
         input(type="text" placeholder="Tìm kiếm")
@@ -63,7 +64,11 @@ block main
                   .inner-date #{item.deletedAtFormat}
               td
                 .inner-action
-                  a.inner-edit(href="#") 
+                  a.inner-edit(
+                    href="javascript:;"
+                    button-restore
+                    data-api=`/${pathAdmin}/tour/restore/${item.id}`
+                  ) 
                     i.fa-solid.fa-rotate-left
                   a.inner-remove(href="#")
                     i.fa-regular.fa-trash-can

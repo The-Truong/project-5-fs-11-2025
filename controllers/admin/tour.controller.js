@@ -244,6 +244,35 @@ module.exports.deletePatch = async (req, res) => {
   }
 }
 
+module.exports.restorePatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const tourDetail = await Tour.findById(id);
+    if(!tourDetail) {
+      res.json({
+        code: "error",
+        message: "Tour không tồn tại!",
+      })
+      return;
+    }
+    await Tour.findByIdAndUpdate(id, {
+      deleted: false,
+    });
+
+    res.json({
+      code: "success",
+      message: "Đã khôi phục!"
+    })
+
+  } catch(error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+}
+
 module.exports.changeMultiPatch = async (req, res) => {
   try {
     const adminId = res.locals.account.id;
