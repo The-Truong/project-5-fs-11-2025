@@ -27,4 +27,5 @@ router.patch('/edit/:id',
     tourValidate.createPost,
     tourController.editPatch);
 
+router.patch('/delete/:id', tourController.deletePatch);
 module.exports = router;

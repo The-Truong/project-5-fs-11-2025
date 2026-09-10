@@ -774,7 +774,6 @@ if(listButtonDelete.length > 0) {
     button.addEventListener("click", () => {
       const isConfirm = confirm("Vui lòng xác nhận xóa!");
       const dataApi = button.getAttribute("data-api");
-      console.log(dataApi);
       if(!isConfirm) return;
       fetch(dataApi,{
         method: "PATCH",

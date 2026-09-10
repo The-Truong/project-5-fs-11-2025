@@ -25,7 +25,7 @@ module.exports.list = async (req, res) => {
 
     if(item.updatedBy){
       const updatedBy = await AccountAdmin.findById(item.updatedBy);
-      item.updatedAtByName = updatedAt ? updatedAt.fullName : "";
+      item.updatedByName = updatedBy ? updatedBy.fullName : "";
       item.updatedAtFormat = moment(item.updatedAt).format("HH:mm - DD/MM/YYYY");
     }
   }
@@ -172,12 +172,42 @@ module.exports.editPatch = async (req, res) => {
     req.body.schedules = req.body.schedules ? JSON.parse(req.body.schedules) : [];
     req.body.avatar = req.file ? req.file.path : '';
     req.body.updatedBy = res.locals.account.id;
-
     await Tour.findByIdAndUpdate(id, req.body);
 
     res.json({
       code: "success",
       message: "Chỉnh sửa tour thành công!"
+    })
+
+  } catch(error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+}
+
+module.exports.deletePatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const tourDetail = await Tour.findById(id);
+    if(!tourDetail) {
+      res.json({
+        code: "error",
+        message: "Tour không tồn tại!",
+      })
+      return;
+    }
+    await Tour.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedBy: res.locals.account.id,
+      deletedAt: Date.now(),
+    });
+
+    res.json({
+      code: "success",
+      message: "Đã xóa tour!"
     })
 
   } catch(error) {

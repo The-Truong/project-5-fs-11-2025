@@ -25,7 +25,7 @@ const schema = new mongoose.Schema(
     information: String,
     schedules: Array,
     createdBy: String,
-    updateBy: String,
+    updatedBy: String,
     slug: {
       type: String,
       slug: "name",
