@@ -65,12 +65,18 @@ block main
               td
                 .inner-action
                   a.inner-edit(
+                    title="Khôi phục"
                     href="javascript:;"
                     button-restore
                     data-api=`/${pathAdmin}/tour/restore/${item.id}`
                   ) 
                     i.fa-solid.fa-rotate-left
-                  a.inner-remove(href="#")
+                  a.inner-remove(
+                    title="Xóa vĩnh viễn"
+                    href="javascript:;"
+                    button-delete
+                    data-api=`/${pathAdmin}/tour/delete-destroy/${item.id}`
+                  )
                     i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78
