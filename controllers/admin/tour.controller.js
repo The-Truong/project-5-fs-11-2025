@@ -10,6 +10,73 @@ module.exports.list = async (req, res) => {
     deleted: false,
   }
 
+  //tìm theo trạng thái
+  if(req.query.status){
+    find.status = req.query.status;
+  }
+  //hết tìm theo trạng thái
+
+  //lọc theo người tạo
+  if(req.query.createdBy){
+    find.createdBy = req.query.createdBy;
+  }
+  //hết lọc theo người tạo
+
+  //lọc theo ngày
+  if(req.query.startDate){
+    find.createdAt = {
+      $gte: new Date(req.query.startDate),
+    }
+  }
+
+  if(req.query.endDate){
+    const endDate = new Date(req.query.endDate);
+    find.createdAt = {
+      ...find.createdAt,
+      $lte: endDate.setUTCHours(23,59,59,999),
+    }
+  }
+  //hết lọc theo ngày
+
+  //lọc theo danh mục
+  if(req.query.category){
+    find.category = req.query.category;
+  }
+  //hết lọc theo danh mục
+
+  // lọc theo giá
+  if(req.query.price){
+    const stringPrice = req.query.price
+    const listPrice = stringPrice.split("-");
+    if(listPrice.length == 3) {
+      const price = parseInt(listPrice[1]) * 1000000;
+      if(listPrice[0] == "duoi") {
+        //điều kiện và
+        find.priceNewAdult = { $lt: price };
+        find.priceNewChildrent = { $lt: price };
+        find.priceNewBaby = { $lt: price };
+        //điều kiện hoặc
+        // find.$or = [
+        //   { priceNewAdult : { $lt: price } },
+        //   { priceNewChildrent : { $lt: price } },
+        //   { priceNewBaby : { $lt: price } },
+        // ]
+      }else if(listPrice[0] == "tren") {
+        find.priceNewAdult = { $gt: price };
+        find.priceNewChildrent = { $gt: price };
+        find.priceNewBaby = { $gt: price };
+      }
+    }else if(listPrice.length == 4) {
+      const priceStart = parseInt(listPrice[1]) * 1000000;
+      const priceEnd = parseInt(listPrice[2]) * 1000000;
+
+      find.priceNewAdult = { $lte: priceEnd, $gte: priceStart };
+      find.priceNewChildrent = { $lte: priceEnd, $gte: priceStart };
+      find.priceNewBaby = { $lte: priceEnd, $gte: priceStart };
+    }
+  }
+  // hết lọc theo giá
+
   const tourList = await Tour
   .find(find)
   .sort({
@@ -30,9 +97,19 @@ module.exports.list = async (req, res) => {
     }
   }
 
+  //danh sách tài khoản
+  const accountList = await AccountAdmin.find({});
+
+  //danh sách danh mục
+  const categoryList = await Category.find({
+    deleted: false,
+  })
+
   res.render('admin/pages/tour-list', {
     pageTitle: 'Quản lý tour',
     tourList: tourList,
+    accountList: accountList,
+    categoryList: categoryList,
   });
 }
 

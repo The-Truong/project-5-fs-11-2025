@@ -8,31 +8,31 @@ block main
         i.fa-solid.fa-filter
         | Bộ lọc
       .inner-item
-        select(name="status")
+        select(filter name="status")
           option(value="") Trạng thái
-          option(value="1") Khởi tạo
-          option(value="2") Hoạt động
-          option(value="3") Tạm dừng
+          option(value="active") Hoạt động
+          option(value="inactive") Tạm dừng
       .inner-item
-        select(name="user")
+        select(filter name="createdBy")
           option(value="") Người tạo
-          option(value="1") Nguyễn Văn Tèo
-          option(value="2") Nguyễn Văn Tý
+          each item in accountList
+            option(value=item.id) #{item.fullName}
       .inner-item
-        input(type="date" name="dateStart" class="inner-date")
+        input(type="date" filter name="startDate" class="inner-date")
         span -
-        input(type="date" name="dateEnd" class="inner-date")
+        input(type="date" filter name="endDate" class="inner-date")
       .inner-item
-        select(name="category")
+        select(filter name="category")
           option(value="") Danh mục
-          option(value="1") Danh mục 1
-          option(value="2") Danh mục 2
+          each item in categoryList
+            option(value=item.id) #{item.name}
       .inner-item
-        select(name="user")
+        select(filter name="price")
           option(value="") Mức giá
-          option(value="1") Dưới 1 triệu
-          option(value="2") 1 - 3 triệu
-      .inner-item.inner-reset
+          option(value="duoi-1-trieu") Dưới 1 triệu
+          option(value="tu-1-3-trieu") 1 - 3 triệu
+          option(value="tren-3-trieu") Trên 3 triệu
+      .inner-item.inner-reset(button-reset-filter)
         i.fa-solid.fa-arrow-rotate-right
         | Xóa bộ lọc
   .section-5
