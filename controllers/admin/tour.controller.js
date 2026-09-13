@@ -4,6 +4,7 @@ const City = require('../../models/city.model');
 const Tour = require('../../models/tour.model');
 const AccountAdmin = require('../../models/account-admin.model');
 const moment = require("moment");
+const slugify = require('slugify');
 
 module.exports.list = async (req, res) => {
   const find = {
@@ -76,6 +77,16 @@ module.exports.list = async (req, res) => {
     }
   }
   // hết lọc theo giá
+
+  //tìm kiếm
+  if(req.query.keyword) {
+    const slug = slugify(req.query.keyword, {
+      lower: true,
+    });
+    const regex = new RegExp(slug, "i");
+    find.slug = regex;
+  }
+  //hết tìm kiếm
 
   const tourList = await Tour
   .find(find)
