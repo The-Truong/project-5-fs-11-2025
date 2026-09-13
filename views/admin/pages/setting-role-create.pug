@@ -13,21 +13,14 @@ block main
       .inner-group
         label.inner-label Phân quyền
         .inner-checkbox-list
-          .inner-checkbox-item
-            input(type="checkbox" name="permissions" id="permission-1" value="dashboard-view")
-            label(for="permission-1") Xem trang Tổng quan
-          .inner-checkbox-item
-            input(type="checkbox" name="permissions" id="permission-2" value="category-view")
-            label(for="permission-2") Xem danh mục
-          .inner-checkbox-item
-            input(type="checkbox" name="permissions" id="permission-3" value="category-create")
-            label(for="permission-3") Tạo danh mục
-          .inner-checkbox-item
-            input(type="checkbox" name="permissions" id="permission-4" value="category-edit")
-            label(for="permission-4") Sửa danh mục
-          .inner-checkbox-item
-            input(type="checkbox" name="permissions" id="permission-1" value="category-delete")
-            label(for="permission-5") Xóa danh mục
+          each item, index in permissionList
+            .inner-checkbox-item
+              input(
+                type="checkbox" 
+                name="permissions" 
+                id=`permission-${index}`
+                value=item.value)
+              label(for=`permission-${index}`) #{item.label}
       .inner-button.inner-two-col
         button Tạo mới
     .inner-back

@@ -659,18 +659,39 @@ if(settingRoleCreateForm){
     .onSuccess((event) => {
       const name = event.target.name.value;
       const description = event.target.description.value;
-      const role = [];
+      const permissions = [];
 
       //permission
       const listRoleChecked = document.querySelectorAll(`[name="permissions"]:checked`);
       listRoleChecked.forEach(input => {
-        role.push(input.value);
+        permissions.push(input.value);
       })
       // end permission
       
-      console.log(name)
-      console.log(description)
-      console.log(role)
+      const dataFinal = {
+        name,
+        description,
+        permissions,
+      }
+
+      fetch(`/${pathAdmin}/setting/role/create`, {
+        method: "POST",
+        headers: {
+          "Content-type" : "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error"){
+            notyf.error(data.message);
+          }
+
+          if(data.code == "success"){
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
     })
   }
 // end settingRoleCreateForm
