@@ -15,7 +15,7 @@ block main
       a.inner-create(href=`/${pathAdmin}/tour/list`) Quay lại
       .inner-search
         i.fa-solid.fa-magnifying-glass
-        input(type="text" placeholder="Tìm kiếm")
+        input(type="text" placeholder="Tìm kiếm"  input-search)
   .section-6
     .table-2
       table
@@ -79,11 +79,10 @@ block main
                   )
                     i.fa-regular.fa-trash-can
   .box-pagination
-    .inner-title Hiển thị 1 - 9 của 78
+    .inner-label Hiển thị #{pagination.skip + 1} - #{pagination.skip + tourList.length} của #{pagination.totalRecord}
     .inner-select
-      select(name="pagination")
-        option(value="1") Trang 1
-        option(value="2") Trang 2
-        option(value="3") Trang 3
+      select(select-pagination)
+        - for(let i = 1; i <= pagination.totalPage ; i++)
+          option(value=i) Trang #{i}
 
   
