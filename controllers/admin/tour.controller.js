@@ -88,8 +88,26 @@ module.exports.list = async (req, res) => {
   }
   //hết tìm kiếm
 
+  //phân trang
+  const limitItem = 2;
+  let page = 1;
+  if(req.query.page && parseInt(req.query.page) > 0) {
+    page = parseInt(req.query.page);
+  }
+  const skip = (page - 1) * limitItem;
+  const totalRecord = await Tour.countDocuments(find);
+  const totalPage = Math.ceil(totalRecord / limitItem);
+  const pagination = {
+    totalPage: totalPage,
+    totalRecord: totalRecord,
+    skip: skip
+  }
+  //hết phân trang
+
   const tourList = await Tour
   .find(find)
+  .limit(limitItem)
+  .skip(skip)
   .sort({
     position: 'desc',
   });
@@ -121,6 +139,7 @@ module.exports.list = async (req, res) => {
     tourList: tourList,
     accountList: accountList,
     categoryList: categoryList,
+    pagination: pagination,
   });
 }
 

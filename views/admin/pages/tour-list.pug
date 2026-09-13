@@ -98,20 +98,23 @@ block main
                   .inner-date #{item.updatedAtFormat}
               td
                 .inner-action
-                  a.inner-edit(href=`/${pathAdmin}/tour/edit/${item.id}`) 
+                  a.inner-edit(
+                    title="Sửa tour"
+                    href=`/${pathAdmin}/tour/edit/${item.id}`
+                    ) 
                     i.fa-regular.fa-pen-to-square
                   a.inner-remove(
+                    title="Xóa tour"
                     href="javascript:;"
                     button-delete
                     data-api=`/${pathAdmin}/tour/delete/${item.id}`
                   )
                     i.fa-regular.fa-trash-can
   .box-pagination
-    .inner-title Hiển thị 1 - 9 của 78
+    .inner-label Hiển thị #{pagination.skip + 1} - #{pagination.skip + tourList.length} của #{pagination.totalRecord}
     .inner-select
-      select(name="pagination")
-        option(value="1") Trang 1
-        option(value="2") Trang 2
-        option(value="3") Trang 3
+      select(select-pagination)
+        - for(let i = 1; i <= pagination.totalPage ; i++)
+          option(value=i) Trang #{i}
 
   
