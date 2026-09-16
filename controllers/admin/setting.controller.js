@@ -43,9 +43,40 @@ module.exports.accountAdminCreate = (req, res) => {
   });
 }
 
-module.exports.roleList = (req, res) => {
+module.exports.roleList = async (req, res) => {
+  const find = {
+    deleted: false,
+  }
+
+  //phân trang
+  const limitItem = 2;
+  let page = 1;
+  if(req.query.page && parseInt(req.query.page) > 0){
+    page = parseInt(req.query.page);
+  }
+  
+  const skip = (page - 1) * limitItem;
+  const totalRecord = await Role.countDocuments(find);
+  const totalPage = Math.ceil(totalRecord / limitItem);
+
+  const pagination = {
+    skip,
+    totalRecord,
+    totalPage,
+  }
+  
+  const roleList = await Role
+  .find(find)
+  .limit(limitItem)
+  .skip(skip)
+  .sort({
+    createdAt: "desc",
+  });
+
   res.render('admin/pages/setting-role-list', {
     pageTitle: 'Nhóm quyền',
+    roleList: roleList,
+    pagination: pagination,
   });
 }
 
@@ -73,5 +104,60 @@ module.exports.roleCreatePost = async (req, res) => {
       code: "error",
       message: "Dữ liệu không hợp lệ!",
     });
+  }
+}
+
+module.exports.roleEdit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const roleDetail = await Role.findById(id);
+
+    if(!roleDetail) {
+      res.redirect(`/${pathAdmin}/setting/role/list`);
+      return;
+    }
+    
+    res.render('admin/pages/setting-role-edit', {
+      pageTitle: 'Chỉnh sửa nhóm quyền',
+      permissionList: permissionList,
+      roleDetail: roleDetail,
+    });
+
+  }catch (error) {
+    console.log("Lỗi: " + error);
+    res.redirect(`/${pathAdmin}/setting/role/list`);
+  }
+}
+
+module.exports.roleEditPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const roleDetail = await Role.findById(id);
+
+    if(!roleDetail) {
+      res.json({
+        code: "error",
+        message: "Nhóm quyền không tồn tại!"
+      })
+      return;
+    }
+    
+    req.body.updatedBy = res.locals.account.id;
+
+    await Role.updateOne({
+      _id: id,
+    }, req.body);
+
+    res.json({
+      code: "success",
+      message: "Cập nhật thành công",
+    })
+
+  }catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
   }
 }

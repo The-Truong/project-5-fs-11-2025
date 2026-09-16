@@ -8,8 +8,7 @@ block main
         .inner-item
           select(name="")
             option(value="") -- Hành động --
-            option(value="") Tạm dừng
-            option(value="") Hoạt động
+            option(value="") Xóa
         button Áp dụng
       .inner-search
         i.fa-solid.fa-magnifying-glass
@@ -21,27 +20,27 @@ block main
         thead
           tr
             th 
-              input.inner-checkall(type="checkbox" name="selectAll")
+              input.inner-checkall(type="checkbox" check-all)
             th Tên nhóm quyền
             th Mô tả ngắn
             th Hành động
         tbody
-          tr
-            td 
-              input.inner-check(type="checkbox" name="selectItem")
-            td Quản trị viên
-            td Có đầy đủ các quyền
-            td
-              .inner-action
-                a.inner-edit(href="#") 
-                  i.fa-regular.fa-pen-to-square
-                a.inner-remove(href="#")
-                  i.fa-regular.fa-trash-can
+          each item in roleList
+            tr
+              td 
+                input.inner-check(type="checkbox" check-item)
+              td #{item.name}
+              td #{item.description}
+              td
+                .inner-action
+                  a.inner-edit(href=`/${pathAdmin}/setting/role/edit/${item.id}`) 
+                    i.fa-regular.fa-pen-to-square
+                  a.inner-remove(href="#")
+                    i.fa-regular.fa-trash-can
   .box-pagination
-    .inner-title Hiển thị 1 - 9 của 78
+    .inner-label Hiển thị #{pagination.skip + 1} - #{pagination.skip + roleList.length} của #{pagination.totalRecord}
     .inner-select
-      select(name="pagination")
-        option(value="1") Trang 1
-        option(value="2") Trang 2
-        option(value="3") Trang 3
+      select(select-pagination)
+        - for(let i = 1; i <= pagination.totalPage; i++)
+          option(value=i) Trang #{i}
           
