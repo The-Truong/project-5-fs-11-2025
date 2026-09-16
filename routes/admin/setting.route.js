@@ -1,5 +1,6 @@
 const express = require('express');
 const settingController = require('../../controllers/admin/setting.controller');
+const settingRoleValidate = require('../../validates/admin/setting-role.validate');
 const multer  = require('multer')
 const { storage } = require('../../helpers/cloudinary.helper');
 
@@ -26,11 +27,15 @@ router.get('/role/list', settingController.roleList);
 
 router.get('/role/create', settingController.roleCreate);
 
-router.post('/role/create', settingController.roleCreatePost);
+router.post('/role/create',
+    settingRoleValidate.createPost,
+    settingController.roleCreatePost);
 
 router.get('/role/edit/:id', settingController.roleEdit);
 
-router.patch('/role/edit/:id', settingController.roleEditPatch);
+router.patch('/role/edit/:id',
+    settingRoleValidate.createPost,
+    settingController.roleEditPatch);
 
 router.patch('/role/delete/:id', settingController.roleDeletePatch);
 
