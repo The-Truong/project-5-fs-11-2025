@@ -4,15 +4,15 @@ block main
   .box-title Nhóm quyền
   .section-5
     .inner-wrap
-      .inner-action
+      .inner-action(change-multi data-api=`/${pathAdmin}/setting/role/change-multi`)
         .inner-item
           select(name="")
             option(value="") -- Hành động --
-            option(value="") Xóa
+            option(value="delete") Xóa
         button Áp dụng
       .inner-search
         i.fa-solid.fa-magnifying-glass
-        input(type="text" placeholder="Tìm kiếm")
+        input(type="text" placeholder="Tìm kiếm" input-search)
       a.inner-create(href=`/${pathAdmin}/setting/role/create`) + Tạo mới
   .section-6
     .table-2
@@ -28,14 +28,18 @@ block main
           each item in roleList
             tr
               td 
-                input.inner-check(type="checkbox" check-item)
+                input.inner-check(type="checkbox" check-item value=item.id)
               td #{item.name}
               td #{item.description}
               td
                 .inner-action
                   a.inner-edit(href=`/${pathAdmin}/setting/role/edit/${item.id}`) 
                     i.fa-regular.fa-pen-to-square
-                  a.inner-remove(href="#")
+                  a.inner-remove(
+                    href="javascript:;"
+                    button-delete
+                    data-api=`/${pathAdmin}/setting/role/delete/${item.id}`
+                  )
                     i.fa-regular.fa-trash-can
   .box-pagination
     .inner-label Hiển thị #{pagination.skip + 1} - #{pagination.skip + roleList.length} của #{pagination.totalRecord}

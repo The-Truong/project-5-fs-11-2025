@@ -1,6 +1,7 @@
 const SettingWebsiteInfo = require("../../models/setting-website-info.model");
 const { permissionList } = require("../../configs/variable.config");
 const Role = require("../../models/role.model");
+const slugify = require('slugify');
 
 module.exports.list = (req, res) => {
   res.render('admin/pages/setting-list', {
@@ -47,6 +48,16 @@ module.exports.roleList = async (req, res) => {
   const find = {
     deleted: false,
   }
+
+  //tìm kiếm
+  if(req.query.keyword) {
+    const slug = slugify(req.query.keyword, {
+      lower: true,
+    });
+    const regex = new RegExp(slug, "i");
+    find.slug = regex;
+  }
+  //hết tìm kiếm
 
   //phân trang
   const limitItem = 2;
@@ -160,4 +171,77 @@ module.exports.roleEditPatch = async (req, res) => {
       message: "Dữ liệu không hợp lệ!",
     })
   }
+}
+
+module.exports.roleDeletePatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const roleDetail = await Role.findById(id);
+
+    if(!roleDetail) {
+      res.json({
+        code: "error",
+        message: "Nhóm quyền không tồn tại!"
+      })
+      return;
+    }
+
+    await Role.updateOne({
+      _id: id,
+    }, {
+      deleted: true,
+      deletedAt: Date.now(),
+      deletedBy: res.locals.account.id,
+    });
+
+    res.json({
+      code: "success",
+      message: "Xóa thành công",
+    })
+
+  }catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+}
+
+module.exports.roleChangeMultiPatch = async (req, res) => {
+  try {
+    const adminId = res.locals.account.id;
+    const { listId, option } = req.body;
+
+    switch (option) {
+      case "delete":
+        await Role.updateMany({
+          _id: {
+            $in: listId,
+          }
+        }, {
+          deleted: true,
+          deletedAt: Date.now(),
+          deletedBy: adminId,
+        })
+        res.json({
+          code: "success",
+          message: "Đã xóa!",
+        })
+        break;
+      default:
+        res.json({
+          code: "error",
+          message: "Hành động không hợp lệ",
+        })
+        break;
+    }
+  } catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+  
 }

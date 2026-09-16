@@ -795,7 +795,6 @@ if(profileEditForm){
 
 // profileChangePasswordForm
 const profileChangePasswordForm = document.querySelector("#profileChangePasswordForm");
-
 if(profileChangePasswordForm){
   const validator = new JustValidate(profileChangePasswordForm);
 
@@ -961,17 +960,67 @@ if(checkAll) {
 // end check all
 
 // change multi
+// const changeMulti = document.querySelector("[change-multi]");
+// if(changeMulti) {
+//   const select = changeMulti.querySelector("select");
+//   const button = changeMulti.querySelector("button");
+//   const dataApi = changeMulti.getAttribute("data-api");
+//   button.addEventListener("click", () => {
+//     const option = select.value;
+//     const listInputChecked = document.querySelectorAll(`[check-item]:checked`);
+//     const listId = [];
+//     listInputChecked.forEach(input => {
+//       listId.push(input.value);
+//     })
+
+//     if(!option) {
+//       notyf.error("Vui lòng chọn hành động!");
+//       return;
+//     }
+
+//     if(listId.length < 1) {
+//       notyf.error("Vui lòng chọn ít nhất 1 bản ghi!");
+//       return;
+//     }
+
+//     const dataFinal = {
+//       option: option,
+//       listId: listId,
+//     }
+    
+//     fetch(dataApi, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-type": "application/json",
+//       },
+//       body: JSON.stringify(dataFinal),
+//     })
+//     .then(res => res.json())
+//     .then(data => {
+//       if(data.code == "error") {
+//         notyf.error(data.message);
+//       }
+//       if(data.code == "success") {
+//         drawNotyf(data.code, data.message);
+//         window.location.reload();
+//       }
+//     })
+//   })
+// }
+// end change multi
+
+//change multi
 const changeMulti = document.querySelector("[change-multi]");
 if(changeMulti) {
-  const select = changeMulti.querySelector("select");
-  const button = changeMulti.querySelector("button");
   const dataApi = changeMulti.getAttribute("data-api");
+  const button = changeMulti.querySelector("button")
+  const select = changeMulti.querySelector("select");
   button.addEventListener("click", () => {
     const option = select.value;
-    const listInputChecked = document.querySelectorAll(`[check-item]:checked`);
+    const listInputCheked = document.querySelectorAll("[check-item]:checked");
     const listId = [];
-    listInputChecked.forEach(input => {
-      listId.push(input.value);
+    listInputCheked.forEach(item => {
+      listId.push(item.value);
     })
 
     if(!option) {
@@ -979,36 +1028,36 @@ if(changeMulti) {
       return;
     }
 
-    if(listId.length < 1) {
+    if(listId.length < 1){
       notyf.error("Vui lòng chọn ít nhất 1 bản ghi!");
       return;
     }
 
     const dataFinal = {
-      option: option,
-      listId: listId,
+      option,
+      listId,
     }
-    
+
     fetch(dataApi, {
       method: "PATCH",
       headers: {
-        "Content-type": "application/json",
+        "Content-type" : "application/json",
       },
       body: JSON.stringify(dataFinal),
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data.code == "error") {
-        notyf.error(data.message);
-      }
-      if(data.code == "success") {
-        drawNotyf(data.code, data.message);
-        window.location.reload();
-      }
-    })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          drawNotyf(data.code, data.message);
+          window.location.reload();
+        }
+      })
   })
 }
-// end change multi
+//end change multi
 
 //input search
 const inputSearch = document.querySelector("[input-search]");
