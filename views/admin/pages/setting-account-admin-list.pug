@@ -55,24 +55,30 @@ block main
             th Trạng thái
             th Hành động
         tbody
-          tr
-            td 
-              input.inner-check(type="checkbox" name="selectItem")
-            td Lê Văn A
-            td
-              img.inner-avatar(src="/admin/assets/images/avatar.png" alt="avatar")
-            td levana@gmail.com
-            td 01234567890
-            td Quản trị viên
-            td Giám đốc
-            td
-              .tag.tag-green Hoạt động
-            td
-              .inner-action
-                a.inner-edit(href="#") 
-                  i.fa-regular.fa-pen-to-square
-                a.inner-remove(href="#")
-                  i.fa-regular.fa-trash-can
+          each item in recordList
+            tr
+              td 
+                input.inner-check(type="checkbox" name="selectItem")
+              td #{item.fullName}
+              td
+                img.inner-avatar(src=item.avatar alt="avatar")
+              td #{item.email}
+              td #{item.phone}
+              td #{item.roleName}
+              td #{item.positionCompany}
+              td
+                if(item.status == "active")
+                  .tag.tag-green Hoạt động
+                else if(item.status == "inactive")
+                  .tag.tag-red Tạm dừng
+                else if(item.status == "initial")
+                  .tag.tag-orange Khởi tạo
+              td
+                .inner-action
+                  a.inner-edit(href="#") 
+                    i.fa-regular.fa-pen-to-square
+                  a.inner-remove(href="#")
+                    i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78
     .inner-select

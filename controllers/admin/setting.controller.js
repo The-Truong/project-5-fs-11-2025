@@ -34,9 +34,26 @@ module.exports.websiteInfoPatch = async (req, res) => {
   })
 }
 
-module.exports.accountAdminList = (req, res) => {
+module.exports.accountAdminList = async (req, res) => {
+  const find = {
+    deleted: false,
+  }
+
+  const recordList = await AccountAdmin
+  .find(find)
+  .sort({
+    createdAt: "desc",
+  });
+
+  for(const item of recordList) {
+    const role = await Role.findById(item.role);
+
+    item.roleName = role?.name;
+  }
+
   res.render('admin/pages/setting-account-admin-list', {
     pageTitle: 'Tài khoản quản trị',
+    recordList: recordList,
   });
 }
 
