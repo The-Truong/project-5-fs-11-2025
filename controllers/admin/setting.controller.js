@@ -117,6 +117,89 @@ module.exports.accountAdminCreatePost = async (req, res) => {
   }
 }
 
+module.exports.accountAdminEdit = async (req, res) => {
+  const id = req.params.id;
+  const accountDetail = await AccountAdmin.findOne({
+    _id: id,
+  })
+
+  if(!accountDetail){
+    res.direct(`/${pathAdmin}/setting/account-admin/list`);
+    return;
+  }
+  
+  const roleList = await Role.find({
+    deleted: false,
+  })
+
+  res.render('admin/pages/setting-account-admin-edit', {
+    pageTitle: 'Chỉnh sửa tài khoản quản trị',
+    roleList: roleList,
+    accountDetail: accountDetail,
+  });
+}
+
+module.exports.accountAdminEditPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const accountDetail = await AccountAdmin.findById(id);
+
+    if(!accountDetail) {
+      res.json({
+        code: "error",
+        message: "Tài khoản quản trị không tồn tại!",
+      })
+      return;
+    }
+
+    const existEmail = await AccountAdmin.findOne({
+      email: req.body.email,
+      _id: { $ne: id} //loại trừ tài khoản này
+    })
+
+    if(existEmail) {
+      res.json({
+        code: "error",
+        message: "Email đã tồn tại trong hệ thống!",
+      });
+      return;
+    }
+
+    const existPhone = await AccountAdmin.findOne({
+      phone: req.body.phone,
+      _id: { $ne: id},
+    })
+
+    if(existPhone) {
+      res.json({
+        code: "error",
+        message: "Số điện thoại đã tồn tại trong hệ thống!",
+      })
+      return;
+    }
+
+    req.body.avatar = req.file ? req.file.path : "";
+    req.body.updatedBy = res.locals.account.id;
+
+    await AccountAdmin.updateOne({
+      _id: id
+    }, req.body);
+
+    res.json({
+      code: "success",
+      message: "Đã chỉnh sửa tài khoản quản trị",
+    })
+    
+  } catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+}
+
 module.exports.roleList = async (req, res) => {
   const find = {
     deleted: false,

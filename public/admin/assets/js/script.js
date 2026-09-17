@@ -667,6 +667,80 @@ if(settingAccountAdminCreate){
 }
 // end settingAccountAdminCreate
 
+// settingAccountAdminEdit
+const settingAccountAdminEdit = document.querySelector("#settingAccountAdminEdit");
+if(settingAccountAdminEdit){
+  const validator = new JustValidate(settingAccountAdminEdit);
+
+  validator
+    .addField('#fullName', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập họ tên!',
+      },
+      {
+        rule: 'minLength',
+        value: 5,
+        errorMessage: 'Tối thiểu 5 ký tự',
+      },
+      {
+        rule: 'maxLength',
+        value: 50,
+        errorMessage: 'Tối đa 50 ký tự',
+      },
+    ])
+    .addField('#email', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập email!',
+      },
+      {
+        rule: 'email',
+        errorMessage: 'Email không đúng định dạng!',
+      },
+    ])
+    .addField('#role', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập chọn nhóm quyền!',
+      },
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const fullName = event.target.fullName.value;
+      const email = event.target.email.value;
+      const phone = event.target.phone.value;
+      const role = event.target.role.value;
+      const positionCompany = event.target.positionCompany.value;
+      const status = event.target.status.value;
+      const avatar = filePond.avatar.getFile()?.file || null;
+      
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("role", role);
+      formData.append("positionCompany", positionCompany);
+      formData.append("status", status);
+      formData.append("avatar", avatar);
+
+      fetch(`/${pathAdmin}/setting/account-admin/edit/${id}`, {
+        method: "PATCH",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notyf.error(data.message);
+          }
+          if(data.code == "success") {
+            notyf.success(data.message);
+          }
+        })
+    })
+}
+// end settingAccountAdminEdit
+
 // settingRoleCreateForm
 const settingRoleCreateForm = document.querySelector("#settingRoleCreateForm");
 if(settingRoleCreateForm){
