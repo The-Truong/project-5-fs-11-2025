@@ -585,6 +585,12 @@ if(settingAccountAdminCreate){
         errorMessage: 'Email không đúng định dạng!',
       },
     ])
+    .addField('#role', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập chọn nhóm quyền!',
+      },
+    ])
     .addField('#password', [
       {
         rule: 'required',
@@ -632,14 +638,31 @@ if(settingAccountAdminCreate){
       const status = event.target.status.value;
       const password = event.target.password.value;
       const avatar = filePond.avatar.getFile()?.file || null;
-      console.log(fullName)
-      console.log(email)
-      console.log(phone)
-      console.log(role)
-      console.log(positionCompany)
-      console.log(status)
-      console.log(password)
-      console.log(avatar)
+      
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("role", role);
+      formData.append("positionCompany", positionCompany);
+      formData.append("status", status);
+      formData.append("password", password);
+      formData.append("avatar", avatar);
+
+      fetch(`/${pathAdmin}/setting/account-admin/create`, {
+        method: "POST",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notyf.error(data.message);
+          }
+          if(data.code == "success") {
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
     })
 }
 // end settingAccountAdminCreate

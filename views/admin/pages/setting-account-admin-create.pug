@@ -14,17 +14,18 @@ block main
         label.inner-label(for="phone") Số điện thoại
         input(type="text" id="phone" name="phone")
       .inner-group
-        label.inner-label(for="role") Chọn quyền
+        label.inner-label(for="role") Chọn quyền *
         select(id="role" name="role")
-          option(value="id-quan-tri-vien") Quản trị viên
-          option(value="id-quan-ly-tour") Quản lý tour
-          option(value="id-quan-ly-don-hang") Quản lý đơn hàng
+          option(value="") -- Chọn nhóm quyền --
+          each item in roleList
+            option(value=item.id) #{item.name}
       .inner-group
         label.inner-label(for="positionCompany") Chức vụ
         input(type="text" id="positionCompany" name="positionCompany")
       .inner-group
         label.inner-label(for="status") Trạng thái
         select(id="status")
+          option(value="initial") Khởi tạo
           option(value="active") Hoạt động
           option(value="inactive") Tạm dừng
       .inner-group

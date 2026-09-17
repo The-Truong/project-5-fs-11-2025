@@ -3,11 +3,23 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({ 
     fullName: String,
     email: String,
-    password: String,
+    phone: String,
+    role: String,
+    positionCompany: String,
     status: String, //inactive, active, initial
+    password: String,
+    avatar: String,
+    createdBy: String,
+    updatedBy: String,
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
+    deletedBy: String,
+    deletedAt: Date,
   },
   { 
-    timestamps: true
+    timestamps: true //tự động sinh ra trường createdAt và updatedAt
   }
 );
 

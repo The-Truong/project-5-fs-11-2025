@@ -1,7 +1,9 @@
 const SettingWebsiteInfo = require("../../models/setting-website-info.model");
-const { permissionList } = require("../../configs/variable.config");
+const AccountAdmin = require("../../models/account-admin.model");
 const Role = require("../../models/role.model");
+const { permissionList } = require("../../configs/variable.config");
 const slugify = require('slugify');
+const bcrypt = require("bcryptjs");
 
 module.exports.list = (req, res) => {
   res.render('admin/pages/setting-list', {
@@ -38,10 +40,64 @@ module.exports.accountAdminList = (req, res) => {
   });
 }
 
-module.exports.accountAdminCreate = (req, res) => {
+module.exports.accountAdminCreate = async (req, res) => {
+  const roleList = await Role.find({
+    deleted: false,
+  })
+
   res.render('admin/pages/setting-account-admin-create', {
     pageTitle: 'Tạo tài khoản quản trị',
+    roleList: roleList,
   });
+}
+
+module.exports.accountAdminCreatePost = async (req, res) => {
+  try {
+    const existEmail = await AccountAdmin.findOne({
+      email: req.body.email,
+    });
+
+    if(existEmail) {
+      res.json({
+        code: "error",
+        message: "Email đã tồn tại trong hệ thống!",
+      })
+      return;
+    }
+
+    const existPhone = await AccountAdmin.findOne({
+      phone: req.body.phone,
+    });
+
+    if(existPhone) {
+      res.json({
+        code: "error",
+        message: "Số điện thoại đã được đăng ký!",
+      })
+      return;
+    }
+
+    const salt = bcrypt.genSaltSync(10); // tạo chuỗi ngẫu nhiên 10 ký tự
+    req.body.password = bcrypt.hashSync(req.body.password, salt);
+    
+    req.body.avatar = req.file ? req.file.path : '';
+
+    req.body.createdBy = res.locals.account.id;
+
+    const newRecord = new AccountAdmin(req.body);
+    await newRecord.save();
+
+    res.json({
+      code: "success",
+      message: "Tạo tài khoản thành công",
+    })
+  } catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
 }
 
 module.exports.roleList = async (req, res) => {
