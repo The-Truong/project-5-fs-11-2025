@@ -1038,7 +1038,28 @@ if(profileChangePasswordForm){
     ])
     .onSuccess((event) => {
       const password = event.target.password.value;
-      console.log(password)
+      
+      const dataFinal = {
+        password: password,
+      }
+
+      fetch(`/${pathAdmin}/account/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.code == "error"){
+          notyf.error(data.message);
+        }
+        if(data.code == "success"){
+          drawNotyf(data.code, data.message);
+          window.location.reload();
+        }
+      })
     })
 }
 // end profileChangePasswordForm
