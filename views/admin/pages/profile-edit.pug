@@ -6,23 +6,23 @@ block main
     form(id="profileEditForm")
       .inner-group
         label.inner-label(for="fullName") Họ tên *
-        input(type="text" id="fullName" name="fullName" value="Lê Văn A")
+        input(type="text" id="fullName" name="fullName" value=account.fullName)
       .inner-group
         label.inner-label(for="email") Email *
-        input(type="email" id="email" name="email" value="levana@gmail.com")
+        input(type="email" id="email" name="email" value=account.email)
       .inner-group
         label.inner-label(for="phone") Số điện thoại
-        input(type="text" id="phone" name="phone" value="0123456789")
+        input(type="text" id="phone" name="phone" value=account.phone)
       .inner-group
         label.inner-label(for="positionCompany") Chức vụ
-        input(type="text" id="positionCompany" name="positionCompany" value="Giám đốc" readonly)
+        input(type="text" id="positionCompany" name="positionCompany" value=account.positionCompany readonly)
       .inner-group
         label.inner-label(for="role") Nhóm quyền
-        input(type="text" id="role" name="role" value="Quản trị viên" readonly)
+        input(type="text" id="role" name="role" value=role.name readonly)
       .inner-group.inner-two-col
         label.inner-label(for="avatar") Ảnh đại diện
         div.inner-upload-image
-          input(type="file" id="avatar" name="avatar" accept="image/*" filepond-image)
+          input(type="file" id="avatar" name="avatar" accept="image/*" filepond-image image-default=account.avatar)
       .inner-button.inner-two-col
         button Cập nhật
     .inner-back

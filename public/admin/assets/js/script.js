@@ -955,10 +955,28 @@ if(profileEditForm){
       const email = event.target.email.value;
       const phone = event.target.phone.value;
       const avatar = filePond.avatar.getFile()?.file || null;
-      console.log(fullName)
-      console.log(email)
-      console.log(phone)
-      console.log(avatar)
+      
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("avatar", avatar);
+      
+      fetch(`/${pathAdmin}/profile/edit`,{
+        method: "PATCH",
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error"){
+            notyf.error(data.message);
+          }
+
+          if(data.code == "success"){
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
     })
 }
 // end profileEditForm
