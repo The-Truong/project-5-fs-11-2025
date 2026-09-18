@@ -75,9 +75,22 @@ block main
                   .tag.tag-orange Khởi tạo
               td
                 .inner-action
-                  a.inner-edit(href=`/${pathAdmin}/setting/account-admin/edit/${item.id}`) 
+                  a.inner-edit(
+                    title="Chỉnh sửa tài khoản"
+                    href=`/${pathAdmin}/setting/account-admin/edit/${item.id}`
+                    ) 
                     i.fa-regular.fa-pen-to-square
-                  a.inner-remove(href="#")
+                  a.inner-edit(
+                    title="Đổi mật khẩu"
+                    href=`/${pathAdmin}/setting/account-admin/change-password/${item.id}`
+                    )
+                    i.fa-solid.fa-key
+                  a.inner-remove(
+                    title="Xóa tài khoản"
+                    href="javascript:;"
+                    button-delete
+                    data-api=`/${pathAdmin}/setting/account-admin/delete/${item.id}`
+                  )
                     i.fa-regular.fa-trash-can
   .box-pagination
     .inner-title Hiển thị 1 - 9 của 78

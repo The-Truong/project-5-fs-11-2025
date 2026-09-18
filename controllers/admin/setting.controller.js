@@ -118,25 +118,33 @@ module.exports.accountAdminCreatePost = async (req, res) => {
 }
 
 module.exports.accountAdminEdit = async (req, res) => {
-  const id = req.params.id;
-  const accountDetail = await AccountAdmin.findOne({
-    _id: id,
-  })
+  try {
+    const id = req.params.id;
+    const accountDetail = await AccountAdmin.findOne({
+      _id: id,
+    })
 
-  if(!accountDetail){
-    res.direct(`/${pathAdmin}/setting/account-admin/list`);
-    return;
+    if(!accountDetail){
+      res.direct(`/${pathAdmin}/setting/account-admin/list`);
+      return;
+    }
+    
+    const roleList = await Role.find({
+      deleted: false,
+    })
+
+    res.render('admin/pages/setting-account-admin-edit', {
+      pageTitle: 'Chỉnh sửa tài khoản quản trị',
+      roleList: roleList,
+      accountDetail: accountDetail,
+    });
+  }catch (error) {
+    console.log("Lỗi: " + error);
+    if(!accountDetail){
+      res.direct(`/${pathAdmin}/setting/account-admin/list`);
+      return;
+    }
   }
-  
-  const roleList = await Role.find({
-    deleted: false,
-  })
-
-  res.render('admin/pages/setting-account-admin-edit', {
-    pageTitle: 'Chỉnh sửa tài khoản quản trị',
-    roleList: roleList,
-    accountDetail: accountDetail,
-  });
 }
 
 module.exports.accountAdminEditPatch = async (req, res) => {
@@ -190,8 +198,69 @@ module.exports.accountAdminEditPatch = async (req, res) => {
       code: "success",
       message: "Đã chỉnh sửa tài khoản quản trị",
     })
-    
+
   } catch (error) {
+    console.log("Lỗi: " + error);
+    res.json({
+      code: "error",
+      message: "Dữ liệu không hợp lệ!",
+    })
+  }
+}
+
+module.exports.accountAdminChangePassword = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const accountDetail = await AccountAdmin.findOne({
+      _id: id,
+    })
+
+    if(!accountDetail){
+      res.direct(`/${pathAdmin}/setting/account-admin/list`);
+      return;
+    }
+    
+    res.render('admin/pages/setting-account-admin-change-password', {
+      pageTitle: 'Đổi mật khẩu tài khoản quản trị',
+      accountDetail: accountDetail,
+    });
+
+  }catch (error) {
+    console.log("Lỗi: " + error);
+    res.direct(`/${pathAdmin}/setting/account-admin/list`);
+  }
+}
+
+module.exports.accountAdminChangePasswordPatch = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const accountDetail = await AccountAdmin.findOne({
+      _id: id,
+    })
+
+    if(!accountDetail){
+      res.json({
+        code: "error",
+        message: "Tài khoản quản trị không tồn tại!",
+      })
+      return;
+    }
+
+    const salt = bcrypt.genSaltSync(10); // tạo chuỗi ngẫu nhiên 10 ký tự
+    req.body.password = bcrypt.hashSync(req.body.password, salt);
+    
+    req.body.updatedBy = res.locals.account.id;
+
+    await AccountAdmin.updateOne({
+      _id: id,
+    }, req.body);
+
+    res.json({
+      code: "success",
+      message: "Đã đổi mật khẩu",
+    })
+
+  }catch (error) {
     console.log("Lỗi: " + error);
     res.json({
       code: "error",

@@ -33,6 +33,10 @@ router.patch('/account-admin/edit/:id',
   upload.single('avatar'),
   settingController.accountAdminEditPatch);
 
+router.get('/account-admin/change-password/:id', settingController.accountAdminChangePassword);
+
+router.patch('/account-admin/change-password/:id', settingController.accountAdminChangePasswordPatch);
+
 router.get('/role/list', settingController.roleList);
 
 router.get('/role/create', settingController.roleCreate);

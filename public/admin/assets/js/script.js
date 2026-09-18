@@ -741,6 +741,79 @@ if(settingAccountAdminEdit){
 }
 // end settingAccountAdminEdit
 
+// settingAccountAdminChangePassword
+const settingAccountAdminChangePassword = document.querySelector("#settingAccountAdminChangePassword");
+if(settingAccountAdminChangePassword){
+  const validator = new JustValidate(settingAccountAdminChangePassword);
+
+  validator
+    .addField('#password', [
+      {
+        rule: 'required',
+        errorMessage: 'Vui lòng nhập mật khẩu',
+      },
+      {
+        rule: 'strongPassword',
+        errorMessage: (value) => {
+          let html = ``;
+          if(value.length < 8){
+            html += `
+              <div>Mật khẩu cần tối thiểu 8 ký tự<div>
+            `
+          }
+          if(!/[A-Z]/.test(value)){
+            html += `
+              <div>Mật khẩu cần tối thiểu 1 chữ cái viết hoa<div>
+            `
+          }
+          if(!/[a-z]/.test(value)){
+            html += `
+              <div>Mật khẩu cần tối thiểu 1 chữ cái viết thường<div>
+            `
+          }
+          if(!/[0-9]/.test(value)){
+            html += `
+              <div>Mật khẩu cần tối thiểu 1 chữ số<div>
+            `
+          }
+          if(!/[!@#$%^&*(),.?":{}|<>]/.test(value)){
+            html += `
+              <div>Mật khẩu cần tối thiểu 1 ký tự đặc biệt<div>
+            `
+          }
+          return html;
+        }
+      }
+    ])
+    .onSuccess((event) => {
+      const id = event.target.id.value;
+      const password = event.target.password.value;
+      
+      const dataFinal = {
+        password: password,
+      }
+
+      fetch(`/${pathAdmin}/setting/account-admin/change-password/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type" : "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "error") {
+            notyf.error(data.message);
+          }
+          if(data.code == "success") {
+            drawNotyf(data.code, data.message);
+            window.location.reload();
+          }
+        })
+    })
+}
+// end settingAccountAdminChangePassword
+
 // settingRoleCreateForm
 const settingRoleCreateForm = document.querySelector("#settingRoleCreateForm");
 if(settingRoleCreateForm){
