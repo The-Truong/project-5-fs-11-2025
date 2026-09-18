@@ -259,6 +259,7 @@ a {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .header .inner-account .inner-name {

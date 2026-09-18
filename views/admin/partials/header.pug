@@ -7,9 +7,9 @@ header.header
       img(src="/admin/assets/images/bell.svg" alt="Notification")
       span 6
     .inner-account
-      img(src="/admin/assets/images/avatar.png" alt="Avatar")
+      img(src=account.avatar alt="Avatar")
       .inner-info
         .inner-name #{account.fullName}
-        .inner-role admin
+        .inner-role #{role.name}
     button.inner-button-menu
       i.fa-solid.fa-bars
